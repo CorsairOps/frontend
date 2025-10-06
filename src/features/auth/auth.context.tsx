@@ -1,6 +1,6 @@
 "use client";
 import React, {createContext, useEffect} from "react";
-import {AXIOS_INSTANCE} from "@/api/axiosInstance";
+import {AXIOS_INSTANCE} from "@/lib/api/axiosInstance";
 import {useSession} from "next-auth/react";
 
 const AuthContext = createContext<string | null>(null);

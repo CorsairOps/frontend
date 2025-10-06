@@ -1,7 +1,7 @@
 "use client";
 import LoginBtn from "@/components/LoginBtn";
 import {useSession} from "next-auth/react";
-import {useGetAllAssets} from "@/api/services/assetServiceAPI";
+import {useGetAllAssets} from "@/lib/api/services/assetServiceAPI";
 
 export default function Home() {
   const {data: session} = useSession();
