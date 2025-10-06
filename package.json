@@ -6,11 +6,15 @@
     "dev": "next dev --turbopack",
     "build": "next build --turbopack",
     "start": "next start",
-    "lint": "eslint"
+    "lint": "eslint",
+    "generate-api": "cd ./openapi/asset-service && orval --config orval.config.js && cd ../mission-service && orval --config orval.config.js && cd ../user-service && orval --config orval.config.js"
   },
   "dependencies": {
+    "@tanstack/react-query": "^5.90.2",
+    "axios": "^1.12.2",
     "next": "15.5.4",
     "next-auth": "^4.24.11",
+    "orval": "^7.13.1",
     "react": "19.1.0",
     "react-dom": "19.1.0"
   },
