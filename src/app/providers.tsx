@@ -2,9 +2,8 @@
 import React from "react";
 import {QueryClient, QueryClientProvider} from "@tanstack/react-query";
 import {SessionProvider} from "next-auth/react";
-import {AuthProvider} from "@/features/auth/auth.context";
+import {AuthProvider} from "@/features/auth/context/auth.context";
 import {Theme, ThemeProvider, createTheme} from "@mui/material/styles";
-import {teal, amber} from '@mui/material/colors';
 
 export default function Providers({children}: { children: React.ReactNode }) {
   const queryClient = new QueryClient();
