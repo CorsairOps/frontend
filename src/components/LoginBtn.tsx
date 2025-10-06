@@ -1,4 +1,5 @@
 "use client";
+import Button from "@mui/material/Button";
 import {signIn, signOut, useSession} from "next-auth/react";
 
 export default function LoginBtn() {
@@ -11,13 +12,15 @@ export default function LoginBtn() {
 
   if (session) {
     return (
-      <button onClick={() => handleLogout()}>
+      <Button variant="outlined" onClick={handleLogout}>
         Sign Out
-      </button>
+      </Button>
     )
   }
 
   return (
-    <button onClick={() => signIn("cognito")}>Sign In</button>
+    <Button variant="contained" onClick={() => signIn("cognito")}>
+      Sign In
+    </Button>
   )
 }
