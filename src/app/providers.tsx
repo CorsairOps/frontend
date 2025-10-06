@@ -25,8 +25,12 @@ function ColorThemeProvider({children}: { children: React.ReactNode }) {
 
   const theme: Theme = createTheme({
     palette: {
-      primary: teal,
-      secondary: amber
+      primary: {
+        main: '#25486d', // Navy Blue
+        dark: '#1b3550',
+        light: '#3a5a82',
+        contrastText: '#ffffff',
+      }
     }
   })
 
