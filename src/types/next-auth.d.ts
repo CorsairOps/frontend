@@ -8,6 +8,7 @@ declare module "next-auth" {
       family_name: string;
       email: string;
       gender: string;
+      roles: string[];
     },
     expires: ISODateString;
     accessToken: string;
@@ -18,5 +19,6 @@ declare module "next-auth" {
     family_name: string;
     email: string;
     gender: string;
+    "cognito:groups": string[];
   }
 }

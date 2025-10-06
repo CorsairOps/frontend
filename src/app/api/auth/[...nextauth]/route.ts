@@ -19,11 +19,13 @@ export const authOptions: AuthOptions = {
       }
 
       if (profile) {
+        console.log("Profile:", profile);
         token.id = profile.sub;
         token.given_name = profile.given_name;
         token.family_name = profile.family_name;
         token.email = profile.email;
         token.gender = profile.gender;
+        token.roles = profile["cognito:groups"] || [];
       }
       return token;
     },
@@ -37,6 +39,7 @@ export const authOptions: AuthOptions = {
           session.user.family_name = token.family_name as string;
           session.user.email = token.email as string;
           session.user.gender = token.gender as string;
+          session.user.roles = (token.roles as string[]) || [];
         }
       }
 
