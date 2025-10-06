@@ -24,7 +24,7 @@ type Page = {
 }
 
 const pages: Page[] = [
-  {name: "Home", href: "/"},
+  {name: "Dashboard", href: "/dashboard"},
   {name: "Assets", href: "/assets"},
   {name: "Missions", href: "/missions"},
 ];
@@ -49,11 +49,8 @@ export default function Navbar() {
     setAnchorElNav(null);
   };
 
-
-
-
   return (
-    <AppBar position="fixed" color="primary">
+    <AppBar position="fixed" color="transparent" className="backdrop-blur-xl">
       <Container maxWidth="xl">
         <Toolbar disableGutters>
           <AdbIcon sx={{display: {xs: 'none', md: 'flex'}, mr: 1}}/>
