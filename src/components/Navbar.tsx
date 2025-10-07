@@ -50,7 +50,7 @@ export default function Navbar() {
   };
 
   return (
-    <AppBar position="fixed" color="transparent" className="backdrop-blur-xl">
+    <AppBar position="fixed" color="default" className="backdrop-blur-xl">
       <Container maxWidth="xl">
         <Toolbar disableGutters>
           <AdbIcon sx={{display: {xs: 'none', md: 'flex'}, mr: 1}}/>
@@ -64,8 +64,8 @@ export default function Navbar() {
               display: {xs: 'none', md: 'flex'},
               fontFamily: 'monospace',
               fontWeight: 700,
+              color: "inherit",
               letterSpacing: '.3rem',
-              color: 'inherit',
               textDecoration: 'none',
             }}
           >
@@ -135,7 +135,7 @@ export default function Navbar() {
           <Box sx={{flexGrow: 1, display: {xs: 'none', md: 'flex'}}}>
             {pages.map((page) => (
               <Link key={page.name} href={page.href} onClick={handleCloseNavMenu}>
-                <Button sx={{my: 2, color: 'white', display: 'block'}}>
+                <Button sx={{my: 2, color: 'inherit', display: 'block'}}>
                   {page.name}
                 </Button>
               </Link>

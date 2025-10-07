@@ -15,6 +15,9 @@ export default function Home() {
         <div className="absolute w-full h-full flex flex-col justify-center top-0 left-0">
           <Container maxWidth="lg"
                      className="z-10"
+                     sx={{
+                       color: 'white'
+                     }}
           >
             <Typography variant="h1" sx={{
               fontSize: {xs: '2rem', md: '3rem', lg: '4rem'},
