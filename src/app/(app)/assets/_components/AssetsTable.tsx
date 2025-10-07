@@ -8,9 +8,8 @@ import {
   InputAdornment
 } from "@mui/material";
 import {LoadingSpinnerLg} from "@/components/loading-spinner";
-import {useEffect, useMemo, useState} from "react";
+import {useEffect, useState} from "react";
 import SearchRounded from "@mui/icons-material/SearchRounded";
-
 
 const columns: GridColDef[] = [
   {field: 'name', headerName: 'Name', width: 300},
@@ -27,7 +26,6 @@ const paginationModel = {page: 0, pageSize: 50};
 export default function AssetsTable() {
   const [filteredAssets, setFilteredAssets] = useState<AssetResponse[]>([]);
   const [searchInput, setSearchInput] = useState('');
-
   const {data: assets, isLoading: loadingAssets, error: assetsError} = useGetAllAssets();
 
   useEffect(() => {
@@ -77,6 +75,7 @@ export default function AssetsTable() {
   return (
     <Box className="flex flex-col gap-4">
 
+      {/* Search Bar */}
       <TextField id="search-assets" label="Search Assets" variant="filled" fullWidth
                  placeholder="Search by name, type, status, location..."
                  value={searchInput}
@@ -92,6 +91,7 @@ export default function AssetsTable() {
                  }}
       />
 
+      {/* Assets Table */}
       <DataGrid
         rows={filteredAssets}
         columns={columns}

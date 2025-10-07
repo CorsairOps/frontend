@@ -1,7 +1,9 @@
-import Container from "@mui/material/Container"
+"use client";
 import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
 import AssetsTable from "@/app/(app)/assets/_components/AssetsTable";
+import {Button, Container} from "@mui/material";
+import Link from "next/dist/client/link";
 
 export default function AssetsPage() {
 
@@ -15,7 +17,7 @@ export default function AssetsPage() {
           <Box>
             <Typography variant="h1" sx={{
               fontSize: '2.5rem',
-              fontWeight: 'bold'
+              fontWeight: 'bold',
             }}>
               Assets
             </Typography>
@@ -24,6 +26,13 @@ export default function AssetsPage() {
             </Typography>
           </Box>
 
+          <Box sx={{ display: 'flex', gap: 2, alignItems: 'end', ml: 'auto'}}>
+            <Link href="/assets/create">
+              <Button variant="outlined">
+                Create Asset
+              </Button>
+            </Link>
+          </Box>
           <AssetsTable />
         </Container>
       </div>

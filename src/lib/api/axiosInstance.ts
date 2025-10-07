@@ -24,3 +24,12 @@ export const axiosInstance = <T>(
 
   return promise;
 }
+
+AXIOS_INSTANCE.interceptors.response.use(
+  response => response, error => {
+    if (error.response?.data) {
+      return Promise.reject(error.response.data);
+    }
+    return Promise.reject(error);
+  }
+)
