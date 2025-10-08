@@ -1,5 +1,6 @@
 import KeycloakProvider from "next-auth/providers/keycloak";
 import NextAuth, {AuthOptions} from "next-auth";
+import {JWT} from "next-auth/jwt";
 
 export const authOptions: AuthOptions = {
   providers: [
@@ -14,22 +15,25 @@ export const authOptions: AuthOptions = {
   },
   callbacks: {
     async jwt({token, account, profile}) {
-
-      console.log("Token", token);
-      console.log("Account", account);
-      console.log("Profile", profile);
-
-      if (account) {
+      // Initial sign in
+      if (account && profile && token) {
         token.accessToken = account.access_token;
         token.idToken = account.id_token;
         token.refreshToken = account.refresh_token;
-      }
-
-      if (profile) {
-        console.log("Profile:", profile);
+        token.accessTokenExpires = account.expires_at ? account.expires_at * 1000 : null;
         token.id = profile.sub;
         token.roles = profile.roles;
+        return token;
       }
+
+      // Return previous token if the access token has not expired yet
+      if (token.accessTokenExpires && new Date() < token.accessTokenExpires) {
+        return token;
+      }
+
+      // Access token has expired, try to update it
+      console.log("Access token has expired, refreshing...");
+      token = await refreshAccessToken(token);
       return token;
     },
     async session({session, token, user}) {
@@ -45,6 +49,45 @@ export const authOptions: AuthOptions = {
       }
 
       return session;
+    }
+  }
+}
+
+async function refreshAccessToken(token: JWT) {
+  try {
+    const url = `${process.env.KEYCLOAK_ISSUER!}/protocol/openid-connect/token`;
+    console.log("Refreshing access token at URL:", url);
+
+    const response = await fetch(url, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/x-www-form-urlencoded",
+      },
+      body: new URLSearchParams({
+        client_id: process.env.KEYCLOAK_CLIENT_ID!,
+        client_secret: process.env.KEYCLOAK_CLIENT_SECRET!,
+        grant_type: "refresh_token",
+        refresh_token: token.refreshToken as string,
+      })
+    });
+
+    const refreshedTokens = await response.json();
+
+    if (!response.ok) {
+      throw refreshedTokens;
+    }
+
+    return {
+      ...token,
+      accessToken: refreshedTokens.access_token,
+      accessTokenExpires: Date.now() + refreshedTokens.expires_in * 1000,
+      refreshToken: refreshedTokens.refresh_token ?? token.refreshToken,
+    }
+  } catch (error) {
+    console.log("Error refreshing access token:", error);
+    return {
+      ...token,
+      error: "RefreshAccessTokenError",
     }
   }
 }
