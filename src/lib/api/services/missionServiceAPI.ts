@@ -73,10 +73,12 @@ export interface MissionResponse {
 
 export interface User {
   id?: string;
+  username?: string;
   email?: string;
-  givenName?: string;
-  familyName?: string;
-  gender?: string;
+  firstName?: string;
+  lastName?: string;
+  enabled?: boolean;
+  createdTimestamp?: number;
 }
 
 export interface MissionLogRequest {
@@ -87,7 +89,7 @@ export interface MissionLogRequest {
 export interface MissionLogResponse {
   id?: number;
   missionId?: number;
-  createdBy?: string;
+  createdBy?: User;
   entry?: string;
   timestamp?: string;
 }

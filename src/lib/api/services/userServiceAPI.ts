@@ -31,14 +31,17 @@ export interface ErrorResponse {
 
 export interface User {
   id?: string;
+  username?: string;
   email?: string;
-  givenName?: string;
-  familyName?: string;
-  gender?: string;
+  firstName?: string;
+  lastName?: string;
+  enabled?: boolean;
+  createdTimestamp?: number;
 }
 
 export type GetUsersByIdsParams = {
 ids: string;
+allowEmpty?: boolean;
 };
 
 type SecondParameter<T extends (...args: never) => unknown> = Parameters<T>[1];
@@ -311,6 +314,98 @@ export function useGetUsersByIds<TData = Awaited<ReturnType<typeof getUsersByIds
  ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> } {
 
   const queryOptions = getGetUsersByIdsQueryOptions(params,options)
+
+  const query = useQuery(queryOptions, queryClient) as  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> };
+
+  query.queryKey = queryOptions.queryKey ;
+
+  return query;
+}
+
+
+
+
+/**
+ * @summary Get the authenticated user based on X-User-Id header
+ */
+export const getAuthUser = (
+    
+ options?: SecondParameter<typeof axiosInstance>,signal?: AbortSignal
+) => {
+      
+      
+      return axiosInstance<User>(
+      {url: `/api/users/auth`, method: 'GET', signal
+    },
+      options);
+    }
+  
+
+
+
+export const getGetAuthUserQueryKey = () => {
+    return [
+    `/api/users/auth`
+    ] as const;
+    }
+
+    
+export const getGetAuthUserQueryOptions = <TData = Awaited<ReturnType<typeof getAuthUser>>, TError = ErrorResponse | ErrorResponse | ErrorResponse>( options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof getAuthUser>>, TError, TData>>, request?: SecondParameter<typeof axiosInstance>}
+) => {
+
+const {query: queryOptions, request: requestOptions} = options ?? {};
+
+  const queryKey =  queryOptions?.queryKey ?? getGetAuthUserQueryKey();
+
+  
+
+    const queryFn: QueryFunction<Awaited<ReturnType<typeof getAuthUser>>> = ({ signal }) => getAuthUser(requestOptions, signal);
+
+      
+
+      
+
+   return  { queryKey, queryFn, ...queryOptions} as UseQueryOptions<Awaited<ReturnType<typeof getAuthUser>>, TError, TData> & { queryKey: DataTag<QueryKey, TData, TError> }
+}
+
+export type GetAuthUserQueryResult = NonNullable<Awaited<ReturnType<typeof getAuthUser>>>
+export type GetAuthUserQueryError = ErrorResponse | ErrorResponse | ErrorResponse
+
+
+export function useGetAuthUser<TData = Awaited<ReturnType<typeof getAuthUser>>, TError = ErrorResponse | ErrorResponse | ErrorResponse>(
+  options: { query:Partial<UseQueryOptions<Awaited<ReturnType<typeof getAuthUser>>, TError, TData>> & Pick<
+        DefinedInitialDataOptions<
+          Awaited<ReturnType<typeof getAuthUser>>,
+          TError,
+          Awaited<ReturnType<typeof getAuthUser>>
+        > , 'initialData'
+      >, request?: SecondParameter<typeof axiosInstance>}
+ , queryClient?: QueryClient
+  ):  DefinedUseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
+export function useGetAuthUser<TData = Awaited<ReturnType<typeof getAuthUser>>, TError = ErrorResponse | ErrorResponse | ErrorResponse>(
+  options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof getAuthUser>>, TError, TData>> & Pick<
+        UndefinedInitialDataOptions<
+          Awaited<ReturnType<typeof getAuthUser>>,
+          TError,
+          Awaited<ReturnType<typeof getAuthUser>>
+        > , 'initialData'
+      >, request?: SecondParameter<typeof axiosInstance>}
+ , queryClient?: QueryClient
+  ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
+export function useGetAuthUser<TData = Awaited<ReturnType<typeof getAuthUser>>, TError = ErrorResponse | ErrorResponse | ErrorResponse>(
+  options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof getAuthUser>>, TError, TData>>, request?: SecondParameter<typeof axiosInstance>}
+ , queryClient?: QueryClient
+  ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
+/**
+ * @summary Get the authenticated user based on X-User-Id header
+ */
+
+export function useGetAuthUser<TData = Awaited<ReturnType<typeof getAuthUser>>, TError = ErrorResponse | ErrorResponse | ErrorResponse>(
+  options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof getAuthUser>>, TError, TData>>, request?: SecondParameter<typeof axiosInstance>}
+ , queryClient?: QueryClient 
+ ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> } {
+
+  const queryOptions = getGetAuthUserQueryOptions(options)
 
   const query = useQuery(queryOptions, queryClient) as  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> };
 

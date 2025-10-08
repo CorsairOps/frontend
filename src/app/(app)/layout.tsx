@@ -5,7 +5,7 @@ export default function AppLayout({children}: { children: React.ReactNode }) {
 
   return (
     <AuthOnlyPage>
-      <ValidateRolesPage validRoles={["ANALYST", "OPERATOR", "PLANNER", "ADMIN"]} forbiddenRoles={["EX_MEMBER"]}>
+      <ValidateRolesPage validRoles={["ANALYST", "OPERATOR", "PLANNER", "ADMIN", "TECHNICIAN"]}>
         {children}
       </ValidateRolesPage>
     </AuthOnlyPage>
