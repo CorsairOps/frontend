@@ -7,7 +7,7 @@ export default function LoginBtn() {
 
   async function handleLogout() {
     await signOut({redirect: false});
-    window.location.href = process.env.NEXT_PUBLIC_COGNITO_LOGOUT_URL!;
+    window.location.href = process.env.NEXT_PUBLIC_KEYCLOAK_LOGOUT_URL!;
   }
 
   if (session) {
@@ -19,7 +19,7 @@ export default function LoginBtn() {
   }
 
   return (
-    <Button variant="contained" onClick={() => signIn("cognito")}>
+    <Button variant="contained" onClick={() => signIn("keycloak")}>
       Sign In
     </Button>
   )

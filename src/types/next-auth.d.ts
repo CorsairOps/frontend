@@ -4,21 +4,16 @@ declare module "next-auth" {
   interface Session {
     user: {
       id: string;
-      given_name: string;
-      family_name: string;
-      email: string;
-      gender: string;
       roles: string[];
     },
     expires: ISODateString;
     accessToken: string;
+    idToken: string;
+    refreshToken: string;
   }
+
   interface Profile {
     sub: string;
-    given_name: string;
-    family_name: string;
-    email: string;
-    gender: string;
-    "cognito:groups": string[];
+    roles: string[];
   }
 }

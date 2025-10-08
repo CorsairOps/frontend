@@ -1,13 +1,16 @@
 'use client';
-import {signOut} from "next-auth/react";
 import {useEffect} from "react";
 import {LoadingSpinnerLg} from "@/components/loading-spinner";
+import {useRouter} from "next/navigation";
+import {useSession} from "next-auth/react";
 
 export default function LogoutPage() {
+  const router = useRouter();
+  const {data: session} = useSession();
 
-  async function handleLogout() {
-    await signOut({redirect: false});
-    window.location.href = process.env.NEXT_PUBLIC_COGNITO_LOGOUT_URL!;
+  function handleLogout() {
+    const logoutUrl = `${process.env.NEXT_PUBLIC_KEYCLOAK_LOGOUT_URL!}&id_token_hint=${session?.idToken}`;
+    router.push(logoutUrl);
   }
 
   useEffect(() => {
