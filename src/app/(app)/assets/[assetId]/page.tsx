@@ -9,9 +9,8 @@ import Container from "@mui/material/Container";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import Paper from "@mui/material/Paper";
-import Link from "next/link";
-import EditAssetDialog from "@/features/assets/EditAssetDialog";
-import Breadcrumbs from "@mui/material/Breadcrumbs";
+import EditAssetDialog from "@/features/assets/components/EditAssetDialog";
+import PageBreadcrumbs from "@/components/PageBreadcrumbs";
 
 export default function AssetPage() {
   const params = useParams();
@@ -26,7 +25,7 @@ export default function AssetPage() {
   if (isLoadingAsset) {
     return (
       <div className="pt-24 flex flex-col gap-4 items-center justify-center">
-        <PageBreadcrumbs asset={asset}/>
+        <PageBreadcrumbs links={[{label: "Assets", href: "/assets"}]} current={"Asset Details"} />
         <LoadingSpinnerLg/>
         <p>Loading asset details...</p>
       </div>
@@ -36,7 +35,7 @@ export default function AssetPage() {
   if (assetError) {
     return (
       <div className="pt-24 flex flex-col gap-4 items-center justify-center">
-        <PageBreadcrumbs asset={asset}/>
+        <PageBreadcrumbs links={[{label: "Assets", href: "/assets"}]} current={"Asset Details"} />
         <p className="text-red-500">Error loading asset: {assetError.message}</p>
       </div>
     );
@@ -44,10 +43,10 @@ export default function AssetPage() {
 
   if (asset) {
     return (
-      <div className="pt-24">
+      <div className="pt-24 w-full">
 
         <Container maxWidth="xl" sx={{display: 'flex', flexDirection: 'column', gap: 4}}>
-          <PageBreadcrumbs asset={asset}/>
+          <PageBreadcrumbs links={[{label: "Assets", href: "/assets"}]} current={asset.name as string} />
           <Box>
             <Typography variant="h1" sx={{fontSize: '2rem', fontWeight: 'bold'}}>
               {asset.name}
@@ -163,20 +162,5 @@ function AssetLocations({asset}: { asset: AssetResponse }) {
       }
     </Box>
 
-  )
-}
-
-function PageBreadcrumbs({
-                           asset
-                         }: {
-  asset: AssetResponse | undefined
-}) {
-  return (
-    <Breadcrumbs aria-label="breadcrumb" sx={{mb: 1}}>
-      <Link href="/assets">
-        Assets
-      </Link>
-      <Typography sx={{color: 'text.primary'}}>{asset?.name || "Asset Details"}</Typography>
-    </Breadcrumbs>
   )
 }
