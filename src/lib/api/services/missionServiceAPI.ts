@@ -1215,7 +1215,10 @@ export function useGetMissionsAssignedToUser<TData = Awaited<ReturnType<typeof g
 
 
 
-export const getMissionsByAssetId = (
+/**
+ * @summary Get all missions assigned to a specific asset
+ */
+export const getAssignedMissionsByAssetId = (
     assetId: string,
  options?: SecondParameter<typeof axiosInstance>,signal?: AbortSignal
 ) => {
@@ -1230,66 +1233,69 @@ export const getMissionsByAssetId = (
 
 
 
-export const getGetMissionsByAssetIdQueryKey = (assetId?: string,) => {
+export const getGetAssignedMissionsByAssetIdQueryKey = (assetId?: string,) => {
     return [
     `/api/missions/assigned-assets/missions/${assetId}`
     ] as const;
     }
 
     
-export const getGetMissionsByAssetIdQueryOptions = <TData = Awaited<ReturnType<typeof getMissionsByAssetId>>, TError = unknown>(assetId: string, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof getMissionsByAssetId>>, TError, TData>>, request?: SecondParameter<typeof axiosInstance>}
+export const getGetAssignedMissionsByAssetIdQueryOptions = <TData = Awaited<ReturnType<typeof getAssignedMissionsByAssetId>>, TError = ErrorResponse | ErrorResponse | ErrorResponse>(assetId: string, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof getAssignedMissionsByAssetId>>, TError, TData>>, request?: SecondParameter<typeof axiosInstance>}
 ) => {
 
 const {query: queryOptions, request: requestOptions} = options ?? {};
 
-  const queryKey =  queryOptions?.queryKey ?? getGetMissionsByAssetIdQueryKey(assetId);
+  const queryKey =  queryOptions?.queryKey ?? getGetAssignedMissionsByAssetIdQueryKey(assetId);
 
   
 
-    const queryFn: QueryFunction<Awaited<ReturnType<typeof getMissionsByAssetId>>> = ({ signal }) => getMissionsByAssetId(assetId, requestOptions, signal);
+    const queryFn: QueryFunction<Awaited<ReturnType<typeof getAssignedMissionsByAssetId>>> = ({ signal }) => getAssignedMissionsByAssetId(assetId, requestOptions, signal);
 
       
 
       
 
-   return  { queryKey, queryFn, enabled: !!(assetId), ...queryOptions} as UseQueryOptions<Awaited<ReturnType<typeof getMissionsByAssetId>>, TError, TData> & { queryKey: DataTag<QueryKey, TData, TError> }
+   return  { queryKey, queryFn, enabled: !!(assetId), ...queryOptions} as UseQueryOptions<Awaited<ReturnType<typeof getAssignedMissionsByAssetId>>, TError, TData> & { queryKey: DataTag<QueryKey, TData, TError> }
 }
 
-export type GetMissionsByAssetIdQueryResult = NonNullable<Awaited<ReturnType<typeof getMissionsByAssetId>>>
-export type GetMissionsByAssetIdQueryError = unknown
+export type GetAssignedMissionsByAssetIdQueryResult = NonNullable<Awaited<ReturnType<typeof getAssignedMissionsByAssetId>>>
+export type GetAssignedMissionsByAssetIdQueryError = ErrorResponse | ErrorResponse | ErrorResponse
 
 
-export function useGetMissionsByAssetId<TData = Awaited<ReturnType<typeof getMissionsByAssetId>>, TError = unknown>(
- assetId: string, options: { query:Partial<UseQueryOptions<Awaited<ReturnType<typeof getMissionsByAssetId>>, TError, TData>> & Pick<
+export function useGetAssignedMissionsByAssetId<TData = Awaited<ReturnType<typeof getAssignedMissionsByAssetId>>, TError = ErrorResponse | ErrorResponse | ErrorResponse>(
+ assetId: string, options: { query:Partial<UseQueryOptions<Awaited<ReturnType<typeof getAssignedMissionsByAssetId>>, TError, TData>> & Pick<
         DefinedInitialDataOptions<
-          Awaited<ReturnType<typeof getMissionsByAssetId>>,
+          Awaited<ReturnType<typeof getAssignedMissionsByAssetId>>,
           TError,
-          Awaited<ReturnType<typeof getMissionsByAssetId>>
+          Awaited<ReturnType<typeof getAssignedMissionsByAssetId>>
         > , 'initialData'
       >, request?: SecondParameter<typeof axiosInstance>}
  , queryClient?: QueryClient
   ):  DefinedUseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
-export function useGetMissionsByAssetId<TData = Awaited<ReturnType<typeof getMissionsByAssetId>>, TError = unknown>(
- assetId: string, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof getMissionsByAssetId>>, TError, TData>> & Pick<
+export function useGetAssignedMissionsByAssetId<TData = Awaited<ReturnType<typeof getAssignedMissionsByAssetId>>, TError = ErrorResponse | ErrorResponse | ErrorResponse>(
+ assetId: string, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof getAssignedMissionsByAssetId>>, TError, TData>> & Pick<
         UndefinedInitialDataOptions<
-          Awaited<ReturnType<typeof getMissionsByAssetId>>,
+          Awaited<ReturnType<typeof getAssignedMissionsByAssetId>>,
           TError,
-          Awaited<ReturnType<typeof getMissionsByAssetId>>
+          Awaited<ReturnType<typeof getAssignedMissionsByAssetId>>
         > , 'initialData'
       >, request?: SecondParameter<typeof axiosInstance>}
  , queryClient?: QueryClient
   ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
-export function useGetMissionsByAssetId<TData = Awaited<ReturnType<typeof getMissionsByAssetId>>, TError = unknown>(
- assetId: string, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof getMissionsByAssetId>>, TError, TData>>, request?: SecondParameter<typeof axiosInstance>}
+export function useGetAssignedMissionsByAssetId<TData = Awaited<ReturnType<typeof getAssignedMissionsByAssetId>>, TError = ErrorResponse | ErrorResponse | ErrorResponse>(
+ assetId: string, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof getAssignedMissionsByAssetId>>, TError, TData>>, request?: SecondParameter<typeof axiosInstance>}
  , queryClient?: QueryClient
   ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
+/**
+ * @summary Get all missions assigned to a specific asset
+ */
 
-export function useGetMissionsByAssetId<TData = Awaited<ReturnType<typeof getMissionsByAssetId>>, TError = unknown>(
- assetId: string, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof getMissionsByAssetId>>, TError, TData>>, request?: SecondParameter<typeof axiosInstance>}
+export function useGetAssignedMissionsByAssetId<TData = Awaited<ReturnType<typeof getAssignedMissionsByAssetId>>, TError = ErrorResponse | ErrorResponse | ErrorResponse>(
+ assetId: string, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof getAssignedMissionsByAssetId>>, TError, TData>>, request?: SecondParameter<typeof axiosInstance>}
  , queryClient?: QueryClient 
  ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> } {
 
-  const queryOptions = getGetMissionsByAssetIdQueryOptions(assetId,options)
+  const queryOptions = getGetAssignedMissionsByAssetIdQueryOptions(assetId,options)
 
   const query = useQuery(queryOptions, queryClient) as  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> };
 
@@ -1326,7 +1332,7 @@ export const getGetAssignedAssetsByMissionIdQueryKey = (missionId?: number,) => 
     }
 
     
-export const getGetAssignedAssetsByMissionIdQueryOptions = <TData = Awaited<ReturnType<typeof getAssignedAssetsByMissionId>>, TError = ErrorResponse | ErrorResponse | ErrorResponse | ErrorResponse>(missionId: number, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof getAssignedAssetsByMissionId>>, TError, TData>>, request?: SecondParameter<typeof axiosInstance>}
+export const getGetAssignedAssetsByMissionIdQueryOptions = <TData = Awaited<ReturnType<typeof getAssignedAssetsByMissionId>>, TError = ErrorResponse | ErrorResponse | ErrorResponse>(missionId: number, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof getAssignedAssetsByMissionId>>, TError, TData>>, request?: SecondParameter<typeof axiosInstance>}
 ) => {
 
 const {query: queryOptions, request: requestOptions} = options ?? {};
@@ -1345,10 +1351,10 @@ const {query: queryOptions, request: requestOptions} = options ?? {};
 }
 
 export type GetAssignedAssetsByMissionIdQueryResult = NonNullable<Awaited<ReturnType<typeof getAssignedAssetsByMissionId>>>
-export type GetAssignedAssetsByMissionIdQueryError = ErrorResponse | ErrorResponse | ErrorResponse | ErrorResponse
+export type GetAssignedAssetsByMissionIdQueryError = ErrorResponse | ErrorResponse | ErrorResponse
 
 
-export function useGetAssignedAssetsByMissionId<TData = Awaited<ReturnType<typeof getAssignedAssetsByMissionId>>, TError = ErrorResponse | ErrorResponse | ErrorResponse | ErrorResponse>(
+export function useGetAssignedAssetsByMissionId<TData = Awaited<ReturnType<typeof getAssignedAssetsByMissionId>>, TError = ErrorResponse | ErrorResponse | ErrorResponse>(
  missionId: number, options: { query:Partial<UseQueryOptions<Awaited<ReturnType<typeof getAssignedAssetsByMissionId>>, TError, TData>> & Pick<
         DefinedInitialDataOptions<
           Awaited<ReturnType<typeof getAssignedAssetsByMissionId>>,
@@ -1358,7 +1364,7 @@ export function useGetAssignedAssetsByMissionId<TData = Awaited<ReturnType<typeo
       >, request?: SecondParameter<typeof axiosInstance>}
  , queryClient?: QueryClient
   ):  DefinedUseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
-export function useGetAssignedAssetsByMissionId<TData = Awaited<ReturnType<typeof getAssignedAssetsByMissionId>>, TError = ErrorResponse | ErrorResponse | ErrorResponse | ErrorResponse>(
+export function useGetAssignedAssetsByMissionId<TData = Awaited<ReturnType<typeof getAssignedAssetsByMissionId>>, TError = ErrorResponse | ErrorResponse | ErrorResponse>(
  missionId: number, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof getAssignedAssetsByMissionId>>, TError, TData>> & Pick<
         UndefinedInitialDataOptions<
           Awaited<ReturnType<typeof getAssignedAssetsByMissionId>>,
@@ -1368,7 +1374,7 @@ export function useGetAssignedAssetsByMissionId<TData = Awaited<ReturnType<typeo
       >, request?: SecondParameter<typeof axiosInstance>}
  , queryClient?: QueryClient
   ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
-export function useGetAssignedAssetsByMissionId<TData = Awaited<ReturnType<typeof getAssignedAssetsByMissionId>>, TError = ErrorResponse | ErrorResponse | ErrorResponse | ErrorResponse>(
+export function useGetAssignedAssetsByMissionId<TData = Awaited<ReturnType<typeof getAssignedAssetsByMissionId>>, TError = ErrorResponse | ErrorResponse | ErrorResponse>(
  missionId: number, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof getAssignedAssetsByMissionId>>, TError, TData>>, request?: SecondParameter<typeof axiosInstance>}
  , queryClient?: QueryClient
   ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
@@ -1376,7 +1382,7 @@ export function useGetAssignedAssetsByMissionId<TData = Awaited<ReturnType<typeo
  * @summary Get all assets assigned to a specific mission
  */
 
-export function useGetAssignedAssetsByMissionId<TData = Awaited<ReturnType<typeof getAssignedAssetsByMissionId>>, TError = ErrorResponse | ErrorResponse | ErrorResponse | ErrorResponse>(
+export function useGetAssignedAssetsByMissionId<TData = Awaited<ReturnType<typeof getAssignedAssetsByMissionId>>, TError = ErrorResponse | ErrorResponse | ErrorResponse>(
  missionId: number, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof getAssignedAssetsByMissionId>>, TError, TData>>, request?: SecondParameter<typeof axiosInstance>}
  , queryClient?: QueryClient 
  ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> } {
