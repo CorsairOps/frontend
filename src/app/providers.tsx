@@ -6,7 +6,18 @@ import {AuthProvider} from "@/features/auth/context/auth.context";
 import {Theme, ThemeProvider, createTheme} from "@mui/material/styles";
 
 export default function Providers({children}: { children: React.ReactNode }) {
-  const queryClient = new QueryClient();
+  const queryClient = new QueryClient({
+    defaultOptions: {
+      queries: {
+        retry: false,
+        refetchOnWindowFocus: true,
+        staleTime: 5 * 60 * 1000, // 5 minutes
+      },
+      mutations: {
+        retry: false
+      }
+    }
+  });
   return (
     <QueryClientProvider client={queryClient}>
       <SessionProvider>
