@@ -41,6 +41,7 @@ export const authOptions: AuthOptions = {
         session.accessToken = token.accessToken as string;
         session.idToken = token.idToken as string;
         session.refreshToken = token.refreshToken as string;
+        session.error = token.error as string | undefined;
 
         if (session.user) {
           session.user.id = token.id as string;

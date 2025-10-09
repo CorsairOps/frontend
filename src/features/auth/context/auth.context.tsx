@@ -1,7 +1,7 @@
 "use client";
 import React, {createContext, useEffect} from "react";
 import {AXIOS_INSTANCE} from "@/lib/api/axiosInstance";
-import {useSession} from "next-auth/react";
+import {signOut, useSession} from "next-auth/react";
 
 const AuthContext = createContext<string | null>(null);
 
@@ -23,6 +23,12 @@ export const AuthProvider = ({ children}: {
       }
       return config;
     });
+
+    // Handle session errors
+    if (session?.error === "RefreshAccessTokenError") {
+      console.log("Session error: ", session.error);
+      signOut(); // User's session has expired, sign them out
+    }
 
     return () => {
       AXIOS_INSTANCE.interceptors.request.eject(interceptorId);

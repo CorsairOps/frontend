@@ -10,6 +10,8 @@ import LoginBtn from "@/components/LoginBtn";
 export default function AuthOnlyPage({children}: { children: React.ReactNode }) {
 
   const {status} = useSession();
+
+
   if (status === "loading") {
     return (
       <div className="pt-24 flex items-center justify-center">

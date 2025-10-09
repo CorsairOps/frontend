@@ -10,6 +10,7 @@ declare module "next-auth" {
     accessToken: string;
     idToken: string;
     refreshToken: string;
+    error?: string;
   }
 
   interface Profile {
