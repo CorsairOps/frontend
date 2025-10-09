@@ -10,6 +10,7 @@ import {
 import {LoadingSpinnerLg} from "@/components/loading-spinner";
 import {useEffect, useState} from "react";
 import SearchRounded from "@mui/icons-material/SearchRounded";
+import {useRouter} from "next/navigation";
 
 const columns: GridColDef[] = [
   {field: 'name', headerName: 'Name', width: 300},
@@ -27,6 +28,8 @@ export default function AssetsTable() {
   const [filteredAssets, setFilteredAssets] = useState<AssetResponse[]>([]);
   const [searchInput, setSearchInput] = useState('');
   const {data: assets, isLoading: loadingAssets, error: assetsError} = useGetAllAssets();
+
+  const router = useRouter();
 
   useEffect(() => {
     if (assets) {
@@ -97,9 +100,7 @@ export default function AssetsTable() {
         columns={columns}
         initialState={{ pagination: { paginationModel }}}
         pageSizeOptions={[25, 50, 100, 250]}
-        onRowClick={(row) => {
-          console.log("Row clicked:", row);
-        }}
+        onRowClick={(row) => router.push(`/assets/${row.id}`)}
         sx={{border: 0}}
       />
     </Box>
