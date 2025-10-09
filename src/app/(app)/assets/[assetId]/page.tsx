@@ -11,6 +11,7 @@ import Typography from "@mui/material/Typography";
 import Paper from "@mui/material/Paper";
 import EditAssetDialog from "@/features/assets/components/EditAssetDialog";
 import PageBreadcrumbs from "@/components/PageBreadcrumbs";
+import DeleteAssetDialog from "@/features/assets/components/DeleteAssetDialog";
 
 export default function AssetPage() {
   const params = useParams();
@@ -87,6 +88,7 @@ function AssetDetails({asset}: { asset: AssetResponse }) {
 
         <Box sx={{display: 'flex', gap: 1, alignItems: 'center', justifyContent: 'flex-end'}}>
           <EditAssetDialog asset={asset}/>
+          <DeleteAssetDialog asset={asset} />
         </Box>
       </Box>
       <hr/>

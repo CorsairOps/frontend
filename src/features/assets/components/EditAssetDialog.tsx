@@ -1,3 +1,4 @@
+"use client";
 import {
   AssetRequest,
   AssetRequestStatus,
@@ -22,9 +23,17 @@ import {z} from "zod";
 import {assetRequestSchema} from "@/features/assets/assetSchemas";
 import {useForm} from "react-hook-form";
 import {zodResolver} from "@hookform/resolvers/zod";
+import {useSession} from "next-auth/react";
 
 export default function EditAssetDialog({asset}: { asset: AssetResponse }) {
+  const {data: session} = useSession();
+
   const [open, setOpen] = useState(false);
+
+  // verify is planner or admin role
+  if (!session || !session.user.roles.some(role => role === "ADMIN" || role === "PLANNER")) {
+    return null;
+  }
 
   return (
     <>
