@@ -8,6 +8,8 @@ import Typography from "@mui/material/Typography";
 import {LoadingSpinnerMd} from "@/components/loading-spinner";
 import FormError from "@/components/FormError";
 import Link from "next/link";
+import AssignUserDialog from "@/features/mission/components/assigned-users/AssignUserDialog";
+import UnassignUserDialog from "@/features/mission/components/assigned-users/UnassignUserDialog";
 
 export default function MissionAssignedUsers({mission}: {
   mission: MissionResponse;
@@ -20,6 +22,10 @@ export default function MissionAssignedUsers({mission}: {
       <Typography variant="h2" sx={{fontSize: '2rem', fontWeight: 'bold', mb: 2}}>
         Assigned Users
       </Typography>
+      <Box sx={{width: '100%', display: 'flex', gap: 1, mb: 2}}>
+        <AssignUserDialog mission={mission} />
+        <UnassignUserDialog mission={mission} />
+      </Box>
       {isLoading && <LoadingSpinnerMd/>}
       {error && <FormError>{error.message}</FormError>}
       {!isLoading && !error && data && (
