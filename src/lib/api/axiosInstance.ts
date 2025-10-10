@@ -2,7 +2,7 @@ import Axios, {AxiosRequestConfig} from "axios";
 
 export const AXIOS_INSTANCE = Axios.create({
   baseURL: process.env.NEXT_PUBLIC_API_BASE_URL!,
-  timeout: 5000,
+  timeout: 15000,
 });
 
 export const axiosInstance = <T>(
