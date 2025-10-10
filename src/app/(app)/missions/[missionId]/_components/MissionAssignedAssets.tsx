@@ -5,6 +5,8 @@ import Typography from "@mui/material/Typography";
 import {LoadingSpinnerMd} from "@/components/loading-spinner";
 import FormError from "@/components/FormError";
 import Link from "next/link";
+import AssignAssetDialog from "@/features/mission/components/assigned-assets/AssignAssetDialog";
+import UnassignAssetDialog from "@/features/mission/components/assigned-assets/UnassignAssetDialog";
 
 export default function MissionAssignedAssets({mission}: {
   mission: MissionResponse;
@@ -17,6 +19,10 @@ export default function MissionAssignedAssets({mission}: {
       <Typography variant="h2" sx={{fontSize: '2rem', fontWeight: 'bold', mb: 2}}>
         Assigned Assets
       </Typography>
+      <Box sx={{width: '100%', display: 'flex', gap: 1, mb: 2}}>
+        <AssignAssetDialog mission={mission} />
+        <UnassignAssetDialog mission={mission} />
+      </Box>
       {isLoading && <LoadingSpinnerMd/>}
       {error && <FormError>{error.message}</FormError>}
       {!isLoading && !error && data && (

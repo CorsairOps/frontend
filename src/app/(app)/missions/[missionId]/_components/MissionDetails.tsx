@@ -14,33 +14,35 @@ export default function MissionDetails({mission}: {
         {mission.name}
       </Typography>
       <Box sx={{width: '100%', display: 'flex', gap: 1, mb: 2}}>
-        <EditMissionDialog mission={mission} />
-        <DeleteMissionDialog mission={mission} />
+        <EditMissionDialog mission={mission}/>
+        <DeleteMissionDialog mission={mission}/>
       </Box>
-      <Typography variant="body1">
-        <strong>ID:</strong> {mission.id}
-      </Typography>
-      <Typography variant="body1">
-        <strong>Priority:</strong> {mission.priority}
-      </Typography>
-      <Typography variant="body1">
-        <strong>Status:</strong> {mission.status}
-      </Typography>
-      <Typography variant="body1">
-        <strong>Start:</strong> {mission.startDate}
-      </Typography>
-      <Typography variant="body1">
-        <strong>End:</strong> {mission.endDate ?? "N/A"}
-      </Typography>
-      <Typography variant="body1">
-        <strong>Created By:</strong> {mission.createdBy?.lastName}, {mission.createdBy?.firstName}
-      </Typography>
-      <Typography variant="body1">
-        <strong>Created At:</strong> {new Date(mission.createdAt as string).toLocaleString()}
-      </Typography>
-      <Typography variant="body1">
-        <strong>Description:</strong> {mission.description}
-      </Typography>
+      <Box sx={{display: 'flex', flexDirection: 'column', gap: 1,  maxHeight: 400, overflowY: 'auto'}}>
+        <Typography variant="body1">
+          <strong>ID:</strong> {mission.id}
+        </Typography>
+        <Typography variant="body1">
+          <strong>Priority:</strong> {mission.priority}
+        </Typography>
+        <Typography variant="body1">
+          <strong>Status:</strong> {mission.status}
+        </Typography>
+        <Typography variant="body1">
+          <strong>Start:</strong> {mission.startDate}
+        </Typography>
+        <Typography variant="body1">
+          <strong>End:</strong> {mission.endDate ?? "N/A"}
+        </Typography>
+        <Typography variant="body1">
+          <strong>Created By:</strong> {mission.createdBy?.lastName}, {mission.createdBy?.firstName}
+        </Typography>
+        <Typography variant="body1">
+          <strong>Created At:</strong> {new Date(mission.createdAt as string).toLocaleString()}
+        </Typography>
+        <Typography variant="body1">
+          <strong>Description:</strong> {mission.description}
+        </Typography>
+      </Box>
     </Box>
 
   )
