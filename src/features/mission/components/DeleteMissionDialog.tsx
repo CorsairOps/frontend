@@ -12,9 +12,11 @@ import DialogActions from "@mui/material/DialogActions";
 import FormError from "@/components/FormError";
 import {LoadingSpinnerSm} from "@/components/loading-spinner";
 import {MissionResponse, useDeleteMission} from "@/lib/api/services/missionServiceAPI";
+import {useQueryClient} from "@tanstack/react-query";
 
 export default function DeleteMissionDialog({mission}: { mission: MissionResponse }) {
   const router = useRouter();
+  const queryClient = useQueryClient();
   const {data: session} = useSession();
   const [open, setOpen] = useState(false);
 
@@ -22,6 +24,7 @@ export default function DeleteMissionDialog({mission}: { mission: MissionRespons
     mutation: {
       onSuccess: () => {
         console.log('Mission deleted successfully');
+        queryClient.invalidateQueries({queryKey: ["/api/missions"]});
         router.push('/missions');
         setOpen(false);
       }
