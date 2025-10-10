@@ -39,7 +39,7 @@ export default function MissionDetails({mission}: {
         <Typography variant="body1">
           <strong>Created At:</strong> {new Date(mission.createdAt as string).toLocaleString()}
         </Typography>
-        <Typography variant="body1">
+        <Typography variant="body1" sx={{ whiteSpace: 'pre-wrap', wordBreak: 'break-word' }}>
           <strong>Description:</strong> {mission.description}
         </Typography>
       </Box>

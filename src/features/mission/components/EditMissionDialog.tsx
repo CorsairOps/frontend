@@ -136,6 +136,12 @@ function EditMissionForm({mission, close}: {
         />
       </Box>
 
+      <TextField id="description" label="Mission Description" variant="outlined" fullWidth disabled={isPending}
+                 multiline
+                 maxRows={15}
+                 {...register("description")} error={!!errors.description} helperText={errors.description?.message}
+      />
+
       {error && <FormError>{error.message}</FormError>}
 
       <DialogActions>

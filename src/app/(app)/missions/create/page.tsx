@@ -97,6 +97,11 @@ export default function CreateMissionPage() {
                            helperText={errors.endDate?.message}
                 />
               </Box>
+              <TextField id="description" label="Mission Description" variant="outlined" fullWidth disabled={isCreating}
+                         multiline
+                         maxRows={15}
+                         {...register("description")} error={!!errors.description} helperText={errors.description?.message}
+              />
 
               {createError && <FormError>{createError.message}</FormError>}
 
