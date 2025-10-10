@@ -7,7 +7,7 @@ import {AssetResponse} from "@/lib/api/services/assetServiceAPI";
 export default function AssetDetails({asset}: { asset: AssetResponse }) {
   return (
     <Box component={Paper}
-         sx={{display: 'flex', flexDirection: 'column', gap: 2, p: 2, gridColumn: {md: "span 2"}, width: "100%"}}>
+         sx={{display: 'flex', flexDirection: 'column', gap: 2, p: 2, gridColumn: {md: "span 1"}, width: "100%"}}>
       <Box sx={{
         display: 'flex',
         flexDirection: {md: 'row', xs: 'column'},
