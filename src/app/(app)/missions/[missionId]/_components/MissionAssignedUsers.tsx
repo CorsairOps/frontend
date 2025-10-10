@@ -42,8 +42,8 @@ export default function MissionAssignedUsers({mission}: {
                   }
                 }}
                 >
-                  <Typography variant="h3" sx={{fontSize: '1.25rem', fontWeight: 'bold'}}>
-                    {user.lastName}, {user.firstName}
+                  <Typography variant="h3" sx={{fontSize: '1rem', fontWeight: 'bold'}}>
+                    <strong>Name:</strong> {user.lastName ?? "N/A"}, {user.firstName ?? "N/A"}
                   </Typography>
                   <Typography variant="body1">
                     <strong>ID:</strong> {user.id}

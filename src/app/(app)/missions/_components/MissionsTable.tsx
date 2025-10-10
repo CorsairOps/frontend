@@ -15,7 +15,7 @@ const columns: GridColDef[] = [
   {field: 'endDate', headerName: 'End', width: 150},
   {
     field: 'createdBy', headerName: 'Created By', width: 200,
-    valueGetter: (value: never, row: MissionResponse) => `${row.createdBy?.lastName}, ${row.createdBy?.firstName}`
+    valueGetter: (value: never, row: MissionResponse) => `${row.createdBy?.lastName ?? "N/A"}, ${row.createdBy?.firstName ?? "N/A"}`
   }
 ];
 

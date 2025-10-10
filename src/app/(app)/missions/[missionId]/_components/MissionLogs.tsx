@@ -18,7 +18,7 @@ export default function MissionLogs({mission}: {
         Mission Logs
       </Typography>
       <Box sx={{width: '100%', display: 'flex', gap: 1, mb: 2}}>
-        <AddMissionLogDialog mission={mission} />
+        <AddMissionLogDialog mission={mission}/>
       </Box>
       {isLoading && <LoadingSpinnerMd/>}
       {error && <FormError>{error.message}</FormError>}
@@ -28,12 +28,15 @@ export default function MissionLogs({mission}: {
             <Typography variant="body1" color="textSecondary">No mission logs.</Typography>
           ) : (
             data.map(log => (
-              <Box key={log.id} sx={{p: 1, border: '0px solid #ccc', borderRadius: 1, width: '100%', position: 'relative'}}>
+              <Box key={log.id}
+                   sx={{p: 1, border: '0px solid #ccc', borderRadius: 1, width: '100%', position: 'relative'}}>
                 <div className="ml-auto absolute top-2 right-2">
-                  <DeleteMissionLogDialog log={log} />
+                  <DeleteMissionLogDialog log={log}/>
                 </div>
                 <Typography variant="body1">
-                  <strong>Created By:</strong> {log.createdBy?.lastName}, {log.createdBy?.firstName}
+                  <strong>Created By:</strong> {log.createdBy ? (
+                  log.createdBy.lastName || log.createdBy.firstName ? `${log.createdBy.lastName}, ${log.createdBy.firstName}` : log.createdBy.id
+                ) : "N/A"}
                 </Typography>
                 <Typography variant="body1">
                   <strong>Timestamp:</strong> {new Date(log.timestamp as string).toLocaleString()}
