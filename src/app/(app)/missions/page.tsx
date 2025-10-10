@@ -9,7 +9,7 @@ import ValidateRolesPage from "@/features/auth/components/ValidateRolesPage";
 export default function MissionPage() {
   return (
     <ValidateRolesPage validRoles={["ADMIN", "PLANNER", "OPERATOR", "ANALYST"]}>
-      <div className="pt-24 w-full">
+      <div className="pt-24 p-8 w-full">
         <Container maxWidth="xl" sx={{display: "flex", flexDirection: 'column', gap: 4}}>
           <Box>
             <Typography variant="h1" sx={{fontSize: '2rem', fontWeight: 'bold'}}>

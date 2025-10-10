@@ -43,7 +43,7 @@ export default function AssetPage() {
 
   if (asset) {
     return (
-      <div className="pt-24 w-full">
+      <div className="pt-24 p-8 w-full">
 
         <Container maxWidth="xl" sx={{display: 'flex', flexDirection: 'column', gap: 4}}>
           <PageBreadcrumbs links={[{label: "Assets", href: "/assets"}]} current={asset.name as string}/>

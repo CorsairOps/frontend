@@ -1,0 +1,64 @@
+import {
+  MissionResponse,
+  useGetUsersAssignedToMission
+} from "@/lib/api/services/missionServiceAPI";
+import Box from "@mui/material/Box";
+import Paper from "@mui/material/Paper";
+import Typography from "@mui/material/Typography";
+import {LoadingSpinnerMd} from "@/components/loading-spinner";
+import FormError from "@/components/FormError";
+import Link from "next/link";
+
+export default function MissionAssignedUsers({mission}: {
+  mission: MissionResponse;
+}) {
+
+  const {data, isLoading, error} = useGetUsersAssignedToMission(mission.id as number, {
+    query: {
+      queryKey: ['missionAssignedUsers', mission.id]
+    }
+  });
+
+  return (
+    <Box component={Paper} sx={{p: 2, width: '100%'}}>
+      <Typography variant="h2" sx={{fontSize: '2rem', fontWeight: 'bold', mb: 2}}>
+        Assigned Users
+      </Typography>
+      {isLoading && <LoadingSpinnerMd/>}
+      {error && <FormError>{error.message}</FormError>}
+      {!isLoading && !error && data && (
+        <Box sx={{display: 'flex', flexDirection: 'column', gap: 1, maxHeight: 400, overflowY: 'auto'}}>
+          {data.length === 0 ? (
+            <Typography variant="body1" color="textSecondary">No assigned users.</Typography>
+          ) : (
+            data.map(user => (
+              <Link key={user.id} href={`/users/${user.id}`}>
+                <Box sx={{
+                  p: 1, border: '1px solid #ccc', borderRadius: 1,
+                  '&:hover': {
+                    backgroundColor: 'secondary.light'
+                  }
+                }}
+                >
+                  <Typography variant="h3" sx={{fontSize: '1.25rem', fontWeight: 'bold'}}>
+                    {user.lastName}, {user.firstName}
+                  </Typography>
+                  <Typography variant="body1">
+                    <strong>ID:</strong> {user.id}
+                  </Typography>
+                  <Box sx={{display: 'flex', gap: 1, flexWrap: 'wrap'}}>
+                    <Typography variant="body1">
+                      <strong>Email:</strong> {user.email}
+                    </Typography>
+                  </Box>
+                </Box>
+              </Link>
+            ))
+          )}
+        </Box>
+      )}
+
+    </Box>
+  )
+
+}

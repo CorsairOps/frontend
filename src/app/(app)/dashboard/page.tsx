@@ -3,7 +3,7 @@ import Typography from "@mui/material/Typography";
 
 export default function Dashboard() {
   return (
-    <div className="pt-24">
+    <div className="pt-24 p-8 w-full">
       <Container maxWidth="xl">
         <Typography variant="h1" gutterBottom sx={{
           fontSize: '2.5rem',

@@ -8,7 +8,7 @@ import Link from "next/dist/client/link";
 export default function AssetsPage() {
 
   return (
-      <div className="pt-24">
+      <div className="pt-24 p-8 w-full">
         <Container maxWidth="xl" sx={{
           display: 'flex',
           flexDirection: 'column',

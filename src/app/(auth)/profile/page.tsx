@@ -35,7 +35,7 @@ export default function ProfilePage() {
 
   if (authUser) {
     return (
-      <div className="pt-24">
+      <div className="pt-24 p-8 w-full">
         <Container maxWidth="md">
           <Card sx={{ p: 2}}>
             <Typography variant="h1" sx={{fontSize: '2rem', mb: 2}}>

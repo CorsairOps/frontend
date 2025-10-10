@@ -6,8 +6,7 @@ import Link from "next/link";
 export default function Home() {
 
   return (
-    <div className="pt-24 w-full min-h-screen">
-
+    <div className="pt-24 p-8 w-full min-h-screen">
       <Box>
         <Image src="/hero.jpg" objectFit="cover" objectPosition="center" fill={true} alt="Navy Warship"
                className="brightness-40"

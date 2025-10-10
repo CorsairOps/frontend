@@ -40,7 +40,7 @@ export default function CreateAssetPage() {
 
   return (
     <ValidateRolesPage validRoles={['ADMIN', 'PLANNER']}>
-      <div className="pt-24">
+      <div className="pt-24 p-8 w-full">
         <Container maxWidth="xl" sx={{display: 'flex', flexDirection: 'column', gap: 4}}>
           <PageBreadcrumbs links={[{label: "Assets", href: "/assets"}]} current={"Create Asset"}/>
           <Container maxWidth="md" component={Paper} sx={{p: 2, display: 'flex', flexDirection: 'column', gap: 2}}>
