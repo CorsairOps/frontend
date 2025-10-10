@@ -13,3 +13,7 @@ export const missionRequestSchema = z.object({
   endDate: z.string().optional(),
   description: z.string().max(3000, "Description cannot exceed 3000 characters").optional()
 });
+
+export const missionLogSchema = z.object({
+  entry: z.string().min(1, "Log entry is required").max(5000, "Log entry cannot exceed 5000 characters")
+});

@@ -1403,7 +1403,7 @@ export function useGetAssignedAssetsByMissionId<TData = Awaited<ReturnType<typeo
  * @summary Delete a specific mission log by its ID
  */
 export const deleteMissionLog = (
-    missionId: string,
+    missionId: number,
     logId: number,
  options?: SecondParameter<typeof axiosInstance>,) => {
       
@@ -1417,8 +1417,8 @@ export const deleteMissionLog = (
 
 
 export const getDeleteMissionLogMutationOptions = <TError = ErrorResponse | ErrorResponse | ErrorResponse | ErrorResponse,
-    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof deleteMissionLog>>, TError,{missionId: string;logId: number}, TContext>, request?: SecondParameter<typeof axiosInstance>}
-): UseMutationOptions<Awaited<ReturnType<typeof deleteMissionLog>>, TError,{missionId: string;logId: number}, TContext> => {
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof deleteMissionLog>>, TError,{missionId: number;logId: number}, TContext>, request?: SecondParameter<typeof axiosInstance>}
+): UseMutationOptions<Awaited<ReturnType<typeof deleteMissionLog>>, TError,{missionId: number;logId: number}, TContext> => {
 
 const mutationKey = ['deleteMissionLog'];
 const {mutation: mutationOptions, request: requestOptions} = options ?
@@ -1430,7 +1430,7 @@ const {mutation: mutationOptions, request: requestOptions} = options ?
       
 
 
-      const mutationFn: MutationFunction<Awaited<ReturnType<typeof deleteMissionLog>>, {missionId: string;logId: number}> = (props) => {
+      const mutationFn: MutationFunction<Awaited<ReturnType<typeof deleteMissionLog>>, {missionId: number;logId: number}> = (props) => {
           const {missionId,logId} = props ?? {};
 
           return  deleteMissionLog(missionId,logId,requestOptions)
@@ -1449,11 +1449,11 @@ const {mutation: mutationOptions, request: requestOptions} = options ?
  * @summary Delete a specific mission log by its ID
  */
 export const useDeleteMissionLog = <TError = ErrorResponse | ErrorResponse | ErrorResponse | ErrorResponse,
-    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof deleteMissionLog>>, TError,{missionId: string;logId: number}, TContext>, request?: SecondParameter<typeof axiosInstance>}
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof deleteMissionLog>>, TError,{missionId: number;logId: number}, TContext>, request?: SecondParameter<typeof axiosInstance>}
  , queryClient?: QueryClient): UseMutationResult<
         Awaited<ReturnType<typeof deleteMissionLog>>,
         TError,
-        {missionId: string;logId: number},
+        {missionId: number;logId: number},
         TContext
       > => {
 
