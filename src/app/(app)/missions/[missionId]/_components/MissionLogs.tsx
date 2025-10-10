@@ -9,12 +9,7 @@ export default function MissionLogs({mission}: {
   mission: MissionResponse;
 }) {
 
-  const {data, isLoading, error} = useGetMissionLogsForMission(mission.id as number, {
-    query: {
-      queryKey: ['missionLogs', mission.id]
-    }
-  });
-
+  const {data, isLoading, error} = useGetMissionLogsForMission(mission.id as number);
   return (
     <Box component={Paper} sx={{p: 2, gridColumn: {lg: 'span 3'}}}>
       <Typography variant="h2" sx={{fontSize: '2rem', fontWeight: 'bold', mb: 2}}>

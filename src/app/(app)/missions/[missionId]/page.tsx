@@ -20,11 +20,7 @@ export default function MissionPage() {
     data: mission,
     isLoading: loadingMission,
     error: missionError
-  } = useGetMissionById(parseInt(missionId as string), {
-    query: {
-      queryKey: ['mission', missionId]
-    }
-  });
+  } = useGetMissionById(parseInt(missionId as string));
 
   if (loadingMission) {
     return <LoadingSpinnerLg/>;

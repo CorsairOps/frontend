@@ -2,6 +2,7 @@ import {MissionResponse} from "@/lib/api/services/missionServiceAPI";
 import Box from "@mui/material/Box";
 import Paper from "@mui/material/Paper";
 import Typography from "@mui/material/Typography";
+import EditMissionDialog from "@/features/mission/components/EditMissionDialog";
 
 export default function MissionDetails({mission}: {
   mission: MissionResponse;
@@ -11,6 +12,9 @@ export default function MissionDetails({mission}: {
       <Typography variant="h2" sx={{fontSize: '2rem', fontWeight: 'bold', mb: 2}}>
         {mission.name}
       </Typography>
+      <Box sx={{ml: 'auto', display: 'flex', gap: 1, flexWrap: 'wrap', mb: 2}}>
+        <EditMissionDialog mission={mission} />
+      </Box>
       <Typography variant="body1">
         <strong>ID:</strong> {mission.id}
       </Typography>

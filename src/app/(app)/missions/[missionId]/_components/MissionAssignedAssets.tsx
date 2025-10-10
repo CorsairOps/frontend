@@ -10,11 +10,7 @@ export default function MissionAssignedAssets({mission}: {
   mission: MissionResponse;
 }) {
 
-  const {data, isLoading, error} = useGetAssignedAssetsByMissionId(mission.id as number, {
-    query: {
-      queryKey: ['missionAssignedAssets', mission.id]
-    }
-  });
+  const {data, isLoading, error} = useGetAssignedAssetsByMissionId(mission.id as number);
 
   return (
     <Box component={Paper} sx={{p: 2, width: '100%'}}>

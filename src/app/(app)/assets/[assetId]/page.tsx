@@ -16,11 +16,7 @@ export default function AssetPage() {
   const params = useParams();
   const assetId = params.assetId;
 
-  const {data: asset, isLoading: isLoadingAsset, error: assetError} = useGetAssetById(assetId as string, {
-    query: {
-      queryKey: ['asset', assetId]
-    }
-  });
+  const {data: asset, isLoading: isLoadingAsset, error: assetError} = useGetAssetById(assetId as string);
 
   if (isLoadingAsset) {
     return (

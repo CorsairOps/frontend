@@ -6,11 +6,7 @@ import {LoadingSpinnerLg} from "@/components/loading-spinner";
 
 export default function AssetLocations({asset}: { asset: AssetResponse }) {
 
-  const {data, isLoading, error} = useGetAssetLocations(asset.id as string, {
-    query: {
-      queryKey: ['assetLocations', asset.id]
-    }
-  });
+  const {data, isLoading, error} = useGetAssetLocations(asset.id as string);
 
   return (
     <Box component={Paper} sx={{display: 'flex', flexDirection: 'column', gap: 2, p: 2, maxHeight: 500, width: "100%"}}>

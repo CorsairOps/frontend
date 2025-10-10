@@ -13,11 +13,7 @@ export default function MissionAssignedUsers({mission}: {
   mission: MissionResponse;
 }) {
 
-  const {data, isLoading, error} = useGetUsersAssignedToMission(mission.id as number, {
-    query: {
-      queryKey: ['missionAssignedUsers', mission.id]
-    }
-  });
+  const {data, isLoading, error} = useGetUsersAssignedToMission(mission.id as number);
 
   return (
     <Box component={Paper} sx={{p: 2, width: '100%'}}>

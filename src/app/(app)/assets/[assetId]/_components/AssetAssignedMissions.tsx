@@ -11,11 +11,7 @@ import Chip from "@mui/material/Chip";
 
 export default function AssetAssignedMissions({asset}: { asset: AssetResponse }) {
 
-  const {data, isLoading, error} = useGetAssignedMissionsByAssetId(asset.id as string, {
-    query: {
-      queryKey: ['assetMissions', asset.id]
-    }
-  });
+  const {data, isLoading, error} = useGetAssignedMissionsByAssetId(asset.id as string);
 
   return (
     <Box component={Paper} sx={{display: 'flex', flexDirection: 'column', gap: 2, p: 2, maxHeight: 500, width: "100%"}}>

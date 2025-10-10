@@ -78,7 +78,7 @@ function EditAssetForm({asset, close}: {
       onSuccess: async (data: AssetResponse) => {
         console.log("Asset updated successfully:", data);
         queryClient.setQueryData(['asset', asset.id], data);
-        queryClient.invalidateQueries({queryKey: ['assetLocations', asset.id]});
+        queryClient.invalidateQueries({queryKey: [`/api/assets/${asset.id}/locations`]});
         close();
       }
     }
@@ -96,7 +96,7 @@ function EditAssetForm({asset, close}: {
       />
 
       <Box sx={{display: 'flex', gap: 2, mt: 2}}>
-        <TextField autoFocus id="type" label="Asset Type" fullWidth variant="standard" disabled={isPending}
+        <TextField id="type" label="Asset Type" fullWidth variant="standard" disabled={isPending}
                    select slotProps={{select: {native: true}}}
                    {...register("type")} error={!!errors.type} helperText={errors.type?.message}
         >
@@ -105,7 +105,7 @@ function EditAssetForm({asset, close}: {
           ))}
         </TextField>
 
-        <TextField autoFocus id="status" label="Asset Status" fullWidth variant="standard" disabled={isPending}
+        <TextField id="status" label="Asset Status" fullWidth variant="standard" disabled={isPending}
                    select slotProps={{select: {native: true}}}
                    {...register("status")} error={!!errors.status} helperText={errors.status?.message}
         >
@@ -116,11 +116,11 @@ function EditAssetForm({asset, close}: {
       </Box>
 
       <Box sx={{display: 'flex', gap: 2, mt: 2}}>
-        <TextField autoFocus id="latitude" label="Asset Latitude" fullWidth variant="standard"
+        <TextField id="latitude" label="Asset Latitude" fullWidth variant="standard"
                    disabled={isPending} type="number"
                    {...register("latitude")} error={!!errors.latitude} helperText={errors.latitude?.message}
         />
-        <TextField autoFocus id="longitude" label="Asset Longitutde" fullWidth variant="standard"
+        <TextField id="longitude" label="Asset Longitutde" fullWidth variant="standard"
                    disabled={isPending} type="number"
                    {...register("longitude")} error={!!errors.longitude} helperText={errors.longitude?.message}
         />
