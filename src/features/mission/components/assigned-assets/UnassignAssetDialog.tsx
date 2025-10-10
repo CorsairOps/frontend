@@ -139,7 +139,7 @@ function UnassignAssetForm({mission, close}: { mission: MissionResponse, close: 
       <DialogActions>
         <Button onClick={close} disabled={unassigning}>Cancel</Button>
         <Button type="submit" variant="contained" color="primary" disabled={unassigning || !assetId}>
-          {unassigning ? <LoadingSpinnerSm/> : "Assign Asset"}
+          {unassigning ? <LoadingSpinnerSm/> : "Unassign Asset"}
         </Button>
       </DialogActions>
     </form>
