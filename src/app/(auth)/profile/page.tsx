@@ -41,12 +41,14 @@ export default function ProfilePage() {
             <Typography variant="h1" sx={{fontSize: '2rem', mb: 2}}>
               Profile
             </Typography>
-            <Typography variant="body1">ID{authUser.id}</Typography>
+            <Typography variant="body1">ID: {authUser.id}</Typography>
             <Typography variant="body1">Email: {authUser.email}</Typography>
             <Typography variant="body1">First Name: {authUser.firstName}</Typography>
             <Typography variant="body1">Last Name: {authUser.lastName}</Typography>
             {authUser.createdTimestamp && <Typography variant="body1">Created
-                At: {new Date(authUser.createdTimestamp).toLocaleString()}</Typography>}
+                At: {new Date(authUser.createdTimestamp as number).toLocaleString()}</Typography>}
+            <Typography variant="body1">Roles: {authUser.roles?.join(', ')}</Typography>
+            <Typography variant="body1">Account Enabled: {authUser.enabled ? "Yes" : "No"}</Typography>
           </Card>
 
 
