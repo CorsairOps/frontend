@@ -52,7 +52,15 @@ export interface AssetRequest {
   name: string;
   type: AssetRequestType;
   status: AssetRequestStatus;
+  /**
+   * @minimum -180
+   * @maximum 180
+   */
   longitude: number;
+  /**
+   * @minimum -90
+   * @maximum 90
+   */
   latitude: number;
 }
 

@@ -23,8 +23,8 @@ export default function MissionAssignedUsers({mission}: {
         Assigned Users
       </Typography>
       <Box sx={{width: '100%', display: 'flex', gap: 1, mb: 2}}>
-        <AssignUserDialog mission={mission} />
-        <UnassignUserDialog mission={mission} />
+        <AssignUserDialog mission={mission}/>
+        <UnassignUserDialog mission={mission}/>
       </Box>
       {isLoading && <LoadingSpinnerMd/>}
       {error && <FormError>{error.message}</FormError>}
@@ -42,17 +42,18 @@ export default function MissionAssignedUsers({mission}: {
                   }
                 }}
                 >
-                  <Typography variant="h3" sx={{fontSize: '1rem', fontWeight: 'bold'}}>
+                  <Typography variant="h3" sx={{fontSize: '1rem'}}>
                     <strong>Name:</strong> {user.lastName ?? "N/A"}, {user.firstName ?? "N/A"}
                   </Typography>
                   <Typography variant="body1">
                     <strong>ID:</strong> {user.id}
                   </Typography>
-                  <Box sx={{display: 'flex', gap: 1, flexWrap: 'wrap'}}>
-                    <Typography variant="body1">
-                      <strong>Email:</strong> {user.email}
-                    </Typography>
-                  </Box>
+                  <Typography variant="body1">
+                    <strong>Email:</strong> {user.email}
+                  </Typography>
+                  <Typography variant="body1">
+                    <strong>Roles:</strong> {user.roles?.join(', ')}
+                  </Typography>
                 </Box>
               </Link>
             ))

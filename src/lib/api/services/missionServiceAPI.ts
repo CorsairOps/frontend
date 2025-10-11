@@ -79,6 +79,7 @@ export interface User {
   lastName?: string;
   enabled?: boolean;
   createdTimestamp?: number;
+  roles?: string[];
 }
 
 export interface MissionLogRequest {

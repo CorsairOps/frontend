@@ -69,9 +69,10 @@ function AssignUserForm({mission, close}: { mission: MissionResponse, close: () 
       // Filter
       const filtered = (users || []).filter(user =>
         user.lastName?.toLowerCase().includes(searchInput.toLowerCase()) ||
-          user.firstName?.toLowerCase().includes(searchInput.toLowerCase()) ||
-          user.email?.toLowerCase().includes(searchInput.toLowerCase()) ||
-          user.id?.toLowerCase().includes(searchInput.toLowerCase()));
+        user.firstName?.toLowerCase().includes(searchInput.toLowerCase()) ||
+        user.email?.toLowerCase().includes(searchInput.toLowerCase()) ||
+        user.id?.toLowerCase().includes(searchInput.toLowerCase()) ||
+        user.roles?.some(role => role.toLowerCase().includes(searchInput.toLowerCase())));
       setFilteredUsers(filtered);
     }
   }, [users, searchInput]);
@@ -93,7 +94,7 @@ function AssignUserForm({mission, close}: { mission: MissionResponse, close: () 
 
   return (
     <form onSubmit={handleSubmit} noValidate className="flex flex-col gap-4">
-      <TextField id="search-users" label="Search Users" placeholder="Search by last name, first name, email or ID"
+      <TextField id="search-users" label="Search Users" placeholder="Search by last name, first name, email, role or ID"
                  autoFocus
                  fullWidth variant="outlined"
                  value={searchInput}
@@ -124,6 +125,9 @@ function AssignUserForm({mission, close}: { mission: MissionResponse, close: () 
               </Typography>
               <Typography variant="body1">
                 <strong>Email:</strong> {user.email}
+              </Typography>
+              <Typography variant="body1">
+                <strong>Roles:</strong> {user.roles?.join(', ')}
               </Typography>
             </Box>
           ))}
