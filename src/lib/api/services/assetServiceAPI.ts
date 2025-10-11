@@ -678,3 +678,95 @@ export function useGetAssetsByIds<TData = Awaited<ReturnType<typeof getAssetsByI
 
   return query;
 }
+
+
+
+
+/**
+ * @summary Get count of all assets
+ */
+export const getAssetCount = (
+    
+ options?: SecondParameter<typeof axiosInstance>,signal?: AbortSignal
+) => {
+      
+      
+      return axiosInstance<number>(
+      {url: `/api/assets/count`, method: 'GET', signal
+    },
+      options);
+    }
+  
+
+
+
+export const getGetAssetCountQueryKey = () => {
+    return [
+    `/api/assets/count`
+    ] as const;
+    }
+
+    
+export const getGetAssetCountQueryOptions = <TData = Awaited<ReturnType<typeof getAssetCount>>, TError = ErrorResponse | ErrorResponse | ErrorResponse>( options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof getAssetCount>>, TError, TData>>, request?: SecondParameter<typeof axiosInstance>}
+) => {
+
+const {query: queryOptions, request: requestOptions} = options ?? {};
+
+  const queryKey =  queryOptions?.queryKey ?? getGetAssetCountQueryKey();
+
+  
+
+    const queryFn: QueryFunction<Awaited<ReturnType<typeof getAssetCount>>> = ({ signal }) => getAssetCount(requestOptions, signal);
+
+      
+
+      
+
+   return  { queryKey, queryFn, ...queryOptions} as UseQueryOptions<Awaited<ReturnType<typeof getAssetCount>>, TError, TData> & { queryKey: DataTag<QueryKey, TData, TError> }
+}
+
+export type GetAssetCountQueryResult = NonNullable<Awaited<ReturnType<typeof getAssetCount>>>
+export type GetAssetCountQueryError = ErrorResponse | ErrorResponse | ErrorResponse
+
+
+export function useGetAssetCount<TData = Awaited<ReturnType<typeof getAssetCount>>, TError = ErrorResponse | ErrorResponse | ErrorResponse>(
+  options: { query:Partial<UseQueryOptions<Awaited<ReturnType<typeof getAssetCount>>, TError, TData>> & Pick<
+        DefinedInitialDataOptions<
+          Awaited<ReturnType<typeof getAssetCount>>,
+          TError,
+          Awaited<ReturnType<typeof getAssetCount>>
+        > , 'initialData'
+      >, request?: SecondParameter<typeof axiosInstance>}
+ , queryClient?: QueryClient
+  ):  DefinedUseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
+export function useGetAssetCount<TData = Awaited<ReturnType<typeof getAssetCount>>, TError = ErrorResponse | ErrorResponse | ErrorResponse>(
+  options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof getAssetCount>>, TError, TData>> & Pick<
+        UndefinedInitialDataOptions<
+          Awaited<ReturnType<typeof getAssetCount>>,
+          TError,
+          Awaited<ReturnType<typeof getAssetCount>>
+        > , 'initialData'
+      >, request?: SecondParameter<typeof axiosInstance>}
+ , queryClient?: QueryClient
+  ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
+export function useGetAssetCount<TData = Awaited<ReturnType<typeof getAssetCount>>, TError = ErrorResponse | ErrorResponse | ErrorResponse>(
+  options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof getAssetCount>>, TError, TData>>, request?: SecondParameter<typeof axiosInstance>}
+ , queryClient?: QueryClient
+  ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
+/**
+ * @summary Get count of all assets
+ */
+
+export function useGetAssetCount<TData = Awaited<ReturnType<typeof getAssetCount>>, TError = ErrorResponse | ErrorResponse | ErrorResponse>(
+  options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof getAssetCount>>, TError, TData>>, request?: SecondParameter<typeof axiosInstance>}
+ , queryClient?: QueryClient 
+ ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> } {
+
+  const queryOptions = getGetAssetCountQueryOptions(options)
+
+  const query = useQuery(queryOptions, queryClient) as  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> };
+
+  query.queryKey = queryOptions.queryKey ;
+
+  return query;
+}

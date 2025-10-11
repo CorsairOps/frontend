@@ -327,6 +327,98 @@ export function useGetUsersByIds<TData = Awaited<ReturnType<typeof getUsersByIds
 
 
 /**
+ * @summary Get count of all users
+ */
+export const getUserCount = (
+    
+ options?: SecondParameter<typeof axiosInstance>,signal?: AbortSignal
+) => {
+      
+      
+      return axiosInstance<number>(
+      {url: `/api/users/count`, method: 'GET', signal
+    },
+      options);
+    }
+  
+
+
+
+export const getGetUserCountQueryKey = () => {
+    return [
+    `/api/users/count`
+    ] as const;
+    }
+
+    
+export const getGetUserCountQueryOptions = <TData = Awaited<ReturnType<typeof getUserCount>>, TError = ErrorResponse | ErrorResponse | ErrorResponse>( options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof getUserCount>>, TError, TData>>, request?: SecondParameter<typeof axiosInstance>}
+) => {
+
+const {query: queryOptions, request: requestOptions} = options ?? {};
+
+  const queryKey =  queryOptions?.queryKey ?? getGetUserCountQueryKey();
+
+  
+
+    const queryFn: QueryFunction<Awaited<ReturnType<typeof getUserCount>>> = ({ signal }) => getUserCount(requestOptions, signal);
+
+      
+
+      
+
+   return  { queryKey, queryFn, ...queryOptions} as UseQueryOptions<Awaited<ReturnType<typeof getUserCount>>, TError, TData> & { queryKey: DataTag<QueryKey, TData, TError> }
+}
+
+export type GetUserCountQueryResult = NonNullable<Awaited<ReturnType<typeof getUserCount>>>
+export type GetUserCountQueryError = ErrorResponse | ErrorResponse | ErrorResponse
+
+
+export function useGetUserCount<TData = Awaited<ReturnType<typeof getUserCount>>, TError = ErrorResponse | ErrorResponse | ErrorResponse>(
+  options: { query:Partial<UseQueryOptions<Awaited<ReturnType<typeof getUserCount>>, TError, TData>> & Pick<
+        DefinedInitialDataOptions<
+          Awaited<ReturnType<typeof getUserCount>>,
+          TError,
+          Awaited<ReturnType<typeof getUserCount>>
+        > , 'initialData'
+      >, request?: SecondParameter<typeof axiosInstance>}
+ , queryClient?: QueryClient
+  ):  DefinedUseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
+export function useGetUserCount<TData = Awaited<ReturnType<typeof getUserCount>>, TError = ErrorResponse | ErrorResponse | ErrorResponse>(
+  options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof getUserCount>>, TError, TData>> & Pick<
+        UndefinedInitialDataOptions<
+          Awaited<ReturnType<typeof getUserCount>>,
+          TError,
+          Awaited<ReturnType<typeof getUserCount>>
+        > , 'initialData'
+      >, request?: SecondParameter<typeof axiosInstance>}
+ , queryClient?: QueryClient
+  ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
+export function useGetUserCount<TData = Awaited<ReturnType<typeof getUserCount>>, TError = ErrorResponse | ErrorResponse | ErrorResponse>(
+  options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof getUserCount>>, TError, TData>>, request?: SecondParameter<typeof axiosInstance>}
+ , queryClient?: QueryClient
+  ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
+/**
+ * @summary Get count of all users
+ */
+
+export function useGetUserCount<TData = Awaited<ReturnType<typeof getUserCount>>, TError = ErrorResponse | ErrorResponse | ErrorResponse>(
+  options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof getUserCount>>, TError, TData>>, request?: SecondParameter<typeof axiosInstance>}
+ , queryClient?: QueryClient 
+ ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> } {
+
+  const queryOptions = getGetUserCountQueryOptions(options)
+
+  const query = useQuery(queryOptions, queryClient) as  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> };
+
+  query.queryKey = queryOptions.queryKey ;
+
+  return query;
+}
+
+
+
+
+/**
  * @summary Get the authenticated user based on X-User-Id header
  */
 export const getAuthUser = (

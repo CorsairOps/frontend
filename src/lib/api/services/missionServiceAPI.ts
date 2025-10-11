@@ -1033,6 +1033,98 @@ export const useUnassignAssetFromMission = <TError = ErrorResponse | ErrorRespon
     }
     
 /**
+ * @summary Get count of all missions
+ */
+export const getMissionCount = (
+    
+ options?: SecondParameter<typeof axiosInstance>,signal?: AbortSignal
+) => {
+      
+      
+      return axiosInstance<number>(
+      {url: `/api/missions/count`, method: 'GET', signal
+    },
+      options);
+    }
+  
+
+
+
+export const getGetMissionCountQueryKey = () => {
+    return [
+    `/api/missions/count`
+    ] as const;
+    }
+
+    
+export const getGetMissionCountQueryOptions = <TData = Awaited<ReturnType<typeof getMissionCount>>, TError = ErrorResponse | ErrorResponse | ErrorResponse>( options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof getMissionCount>>, TError, TData>>, request?: SecondParameter<typeof axiosInstance>}
+) => {
+
+const {query: queryOptions, request: requestOptions} = options ?? {};
+
+  const queryKey =  queryOptions?.queryKey ?? getGetMissionCountQueryKey();
+
+  
+
+    const queryFn: QueryFunction<Awaited<ReturnType<typeof getMissionCount>>> = ({ signal }) => getMissionCount(requestOptions, signal);
+
+      
+
+      
+
+   return  { queryKey, queryFn, ...queryOptions} as UseQueryOptions<Awaited<ReturnType<typeof getMissionCount>>, TError, TData> & { queryKey: DataTag<QueryKey, TData, TError> }
+}
+
+export type GetMissionCountQueryResult = NonNullable<Awaited<ReturnType<typeof getMissionCount>>>
+export type GetMissionCountQueryError = ErrorResponse | ErrorResponse | ErrorResponse
+
+
+export function useGetMissionCount<TData = Awaited<ReturnType<typeof getMissionCount>>, TError = ErrorResponse | ErrorResponse | ErrorResponse>(
+  options: { query:Partial<UseQueryOptions<Awaited<ReturnType<typeof getMissionCount>>, TError, TData>> & Pick<
+        DefinedInitialDataOptions<
+          Awaited<ReturnType<typeof getMissionCount>>,
+          TError,
+          Awaited<ReturnType<typeof getMissionCount>>
+        > , 'initialData'
+      >, request?: SecondParameter<typeof axiosInstance>}
+ , queryClient?: QueryClient
+  ):  DefinedUseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
+export function useGetMissionCount<TData = Awaited<ReturnType<typeof getMissionCount>>, TError = ErrorResponse | ErrorResponse | ErrorResponse>(
+  options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof getMissionCount>>, TError, TData>> & Pick<
+        UndefinedInitialDataOptions<
+          Awaited<ReturnType<typeof getMissionCount>>,
+          TError,
+          Awaited<ReturnType<typeof getMissionCount>>
+        > , 'initialData'
+      >, request?: SecondParameter<typeof axiosInstance>}
+ , queryClient?: QueryClient
+  ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
+export function useGetMissionCount<TData = Awaited<ReturnType<typeof getMissionCount>>, TError = ErrorResponse | ErrorResponse | ErrorResponse>(
+  options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof getMissionCount>>, TError, TData>>, request?: SecondParameter<typeof axiosInstance>}
+ , queryClient?: QueryClient
+  ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
+/**
+ * @summary Get count of all missions
+ */
+
+export function useGetMissionCount<TData = Awaited<ReturnType<typeof getMissionCount>>, TError = ErrorResponse | ErrorResponse | ErrorResponse>(
+  options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof getMissionCount>>, TError, TData>>, request?: SecondParameter<typeof axiosInstance>}
+ , queryClient?: QueryClient 
+ ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> } {
+
+  const queryOptions = getGetMissionCountQueryOptions(options)
+
+  const query = useQuery(queryOptions, queryClient) as  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> };
+
+  query.queryKey = queryOptions.queryKey ;
+
+  return query;
+}
+
+
+
+
+/**
  * @summary Get all users assigned to a specific mission
  */
 export const getUsersAssignedToMission = (
