@@ -10,11 +10,13 @@ import {zodResolver} from "@hookform/resolvers/zod";
 import FormError from "@/components/FormError";
 import {LoadingSpinnerSm} from "@/components/loading-spinner";
 import {useRouter} from "next/navigation";
+import {useQueryClient} from "@tanstack/react-query";
 
 type MissionForm = z.infer<typeof missionRequestSchema>;
 
 export default function CreateMissionPage() {
   const router = useRouter();
+  const queryClient = useQueryClient();
   const {register, handleSubmit, formState: {errors}} = useForm({
     defaultValues: {
       name: '',
@@ -31,6 +33,7 @@ export default function CreateMissionPage() {
     mutation: {
       onSuccess: async (data) => {
         console.log("Mission created successfully:", data);
+        queryClient.invalidateQueries({queryKey: ['/api/missions']});
         router.push(`/missions/${data.id}`);
       }
     }

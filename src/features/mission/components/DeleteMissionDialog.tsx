@@ -13,27 +13,11 @@ import FormError from "@/components/FormError";
 import {LoadingSpinnerSm} from "@/components/loading-spinner";
 import {MissionResponse, useDeleteMission} from "@/lib/api/services/missionServiceAPI";
 import {useQueryClient} from "@tanstack/react-query";
+import TextField from "@mui/material/TextField";
 
 export default function DeleteMissionDialog({mission}: { mission: MissionResponse }) {
-  const router = useRouter();
-  const queryClient = useQueryClient();
   const {data: session} = useSession();
   const [open, setOpen] = useState(false);
-
-  const {mutate, isPending, error} = useDeleteMission({
-    mutation: {
-      onSuccess: () => {
-        console.log('Mission deleted successfully');
-        queryClient.invalidateQueries({queryKey: ["/api/missions"]});
-        router.push('/missions');
-        setOpen(false);
-      }
-    }
-  });
-
-  function handleDelete() {
-    mutate({id: mission.id as number});
-  }
 
   // verify is planner or admin role
   if (!session || !session.user.roles.some(role => role === "ADMIN" || role === "PLANNER")) {
@@ -52,15 +36,50 @@ export default function DeleteMissionDialog({mission}: { mission: MissionRespons
             Are you sure you want to delete this mission? This action cannot be undone. All associated data will be
             permanently removed.
           </DialogContentText>
-          {error && <FormError>{error.message}</FormError>}
-          <DialogActions>
-            <Button onClick={() => setOpen(false)} disabled={isPending}>Cancel</Button>
-            <Button variant="contained" color="error" onClick={handleDelete} disabled={isPending}>
-              {isPending ? <LoadingSpinnerSm/> : 'Delete'}
-            </Button>
-          </DialogActions>
+          <DeleteForm mission={mission} close={() => setOpen(false)}/>
         </DialogContent>
       </Dialog>
     </>
-  )
+  );
+}
+
+function DeleteForm({mission, close}: { mission: MissionResponse; close: () => void; }) {
+  const router = useRouter();
+  const queryClient = useQueryClient();
+  const {mutate, isPending, error} = useDeleteMission({
+    mutation: {
+      onSuccess: () => {
+        console.log('Mission deleted successfully');
+        queryClient.invalidateQueries({queryKey: [`/api/mission/${mission.id}`]});
+        queryClient.invalidateQueries({queryKey: ["/api/missions"]});
+        router.push('/missions');
+        close();
+      }
+    }
+  });
+  const [confirmText, setConfirmText] = useState("");
+
+  function handleDelete() {
+    mutate({id: mission.id as number});
+  }
+
+  return (
+    <>
+      <TextField fullWidth variant="outlined"
+                 id="confirmText" label={`Type mission name "${mission.name}" to confirm`}
+                 placeholder={mission.name as string} margin="normal"
+                 disabled={isPending}
+                 value={confirmText} onChange={e => setConfirmText(e.target.value)}
+      />
+
+      {error && <FormError>{error.message}</FormError>}
+      <DialogActions>
+        <Button onClick={close} disabled={isPending}>Cancel</Button>
+        <Button variant="contained" color="error" onClick={handleDelete}
+                disabled={isPending || confirmText !== mission.name}>
+          {isPending ? <LoadingSpinnerSm/> : 'Delete'}
+        </Button>
+      </DialogActions>
+    </>
+  );
 }
