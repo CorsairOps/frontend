@@ -113,6 +113,10 @@ export interface AssetLocationResponse {
   timestamp?: string;
 }
 
+export type GetAssetLocationsParams = {
+max?: number;
+};
+
 export type GetAssetsByIdsParams = {
 ids: string;
 };
@@ -502,12 +506,14 @@ export const useCreateAsset = <TError = ErrorResponse | ErrorResponse | ErrorRes
  */
 export const getAssetLocations = (
     id: string,
+    params?: GetAssetLocationsParams,
  options?: SecondParameter<typeof axiosInstance>,signal?: AbortSignal
 ) => {
       
       
       return axiosInstance<AssetLocationResponse[]>(
-      {url: `/api/assets/${id}/locations`, method: 'GET', signal
+      {url: `/api/assets/${id}/locations`, method: 'GET',
+        params, signal
     },
       options);
     }
@@ -515,23 +521,25 @@ export const getAssetLocations = (
 
 
 
-export const getGetAssetLocationsQueryKey = (id?: string,) => {
+export const getGetAssetLocationsQueryKey = (id?: string,
+    params?: GetAssetLocationsParams,) => {
     return [
-    `/api/assets/${id}/locations`
+    `/api/assets/${id}/locations`, ...(params ? [params]: [])
     ] as const;
     }
 
     
-export const getGetAssetLocationsQueryOptions = <TData = Awaited<ReturnType<typeof getAssetLocations>>, TError = ErrorResponse | ErrorResponse | ErrorResponse>(id: string, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof getAssetLocations>>, TError, TData>>, request?: SecondParameter<typeof axiosInstance>}
+export const getGetAssetLocationsQueryOptions = <TData = Awaited<ReturnType<typeof getAssetLocations>>, TError = ErrorResponse | ErrorResponse | ErrorResponse>(id: string,
+    params?: GetAssetLocationsParams, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof getAssetLocations>>, TError, TData>>, request?: SecondParameter<typeof axiosInstance>}
 ) => {
 
 const {query: queryOptions, request: requestOptions} = options ?? {};
 
-  const queryKey =  queryOptions?.queryKey ?? getGetAssetLocationsQueryKey(id);
+  const queryKey =  queryOptions?.queryKey ?? getGetAssetLocationsQueryKey(id,params);
 
   
 
-    const queryFn: QueryFunction<Awaited<ReturnType<typeof getAssetLocations>>> = ({ signal }) => getAssetLocations(id, requestOptions, signal);
+    const queryFn: QueryFunction<Awaited<ReturnType<typeof getAssetLocations>>> = ({ signal }) => getAssetLocations(id,params, requestOptions, signal);
 
       
 
@@ -545,7 +553,8 @@ export type GetAssetLocationsQueryError = ErrorResponse | ErrorResponse | ErrorR
 
 
 export function useGetAssetLocations<TData = Awaited<ReturnType<typeof getAssetLocations>>, TError = ErrorResponse | ErrorResponse | ErrorResponse>(
- id: string, options: { query:Partial<UseQueryOptions<Awaited<ReturnType<typeof getAssetLocations>>, TError, TData>> & Pick<
+ id: string,
+    params: undefined |  GetAssetLocationsParams, options: { query:Partial<UseQueryOptions<Awaited<ReturnType<typeof getAssetLocations>>, TError, TData>> & Pick<
         DefinedInitialDataOptions<
           Awaited<ReturnType<typeof getAssetLocations>>,
           TError,
@@ -555,7 +564,8 @@ export function useGetAssetLocations<TData = Awaited<ReturnType<typeof getAssetL
  , queryClient?: QueryClient
   ):  DefinedUseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
 export function useGetAssetLocations<TData = Awaited<ReturnType<typeof getAssetLocations>>, TError = ErrorResponse | ErrorResponse | ErrorResponse>(
- id: string, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof getAssetLocations>>, TError, TData>> & Pick<
+ id: string,
+    params?: GetAssetLocationsParams, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof getAssetLocations>>, TError, TData>> & Pick<
         UndefinedInitialDataOptions<
           Awaited<ReturnType<typeof getAssetLocations>>,
           TError,
@@ -565,7 +575,8 @@ export function useGetAssetLocations<TData = Awaited<ReturnType<typeof getAssetL
  , queryClient?: QueryClient
   ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
 export function useGetAssetLocations<TData = Awaited<ReturnType<typeof getAssetLocations>>, TError = ErrorResponse | ErrorResponse | ErrorResponse>(
- id: string, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof getAssetLocations>>, TError, TData>>, request?: SecondParameter<typeof axiosInstance>}
+ id: string,
+    params?: GetAssetLocationsParams, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof getAssetLocations>>, TError, TData>>, request?: SecondParameter<typeof axiosInstance>}
  , queryClient?: QueryClient
   ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
 /**
@@ -573,11 +584,12 @@ export function useGetAssetLocations<TData = Awaited<ReturnType<typeof getAssetL
  */
 
 export function useGetAssetLocations<TData = Awaited<ReturnType<typeof getAssetLocations>>, TError = ErrorResponse | ErrorResponse | ErrorResponse>(
- id: string, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof getAssetLocations>>, TError, TData>>, request?: SecondParameter<typeof axiosInstance>}
+ id: string,
+    params?: GetAssetLocationsParams, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof getAssetLocations>>, TError, TData>>, request?: SecondParameter<typeof axiosInstance>}
  , queryClient?: QueryClient 
  ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> } {
 
-  const queryOptions = getGetAssetLocationsQueryOptions(id,options)
+  const queryOptions = getGetAssetLocationsQueryOptions(id,params,options)
 
   const query = useQuery(queryOptions, queryClient) as  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> };
 
