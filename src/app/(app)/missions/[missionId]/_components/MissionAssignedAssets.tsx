@@ -7,6 +7,7 @@ import FormError from "@/components/FormError";
 import Link from "next/link";
 import AssignAssetDialog from "@/features/mission/components/assigned-assets/AssignAssetDialog";
 import UnassignAssetDialog from "@/features/mission/components/assigned-assets/UnassignAssetDialog";
+import Button from "@mui/material/Button";
 
 export default function MissionAssignedAssets({mission}: {
   mission: MissionResponse;
@@ -22,6 +23,11 @@ export default function MissionAssignedAssets({mission}: {
       <Box sx={{width: '100%', display: 'flex', gap: 1, mb: 2}}>
         <AssignAssetDialog mission={mission} />
         <UnassignAssetDialog mission={mission} />
+        <Link href={`/missions/${mission.id}/map`}>
+          <Button variant="outlined">
+            View on Map
+          </Button>
+        </Link>
       </Box>
       {isLoading && <LoadingSpinnerMd/>}
       {error && <FormError>{error.message}</FormError>}

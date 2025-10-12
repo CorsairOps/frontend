@@ -3,6 +3,8 @@ import Box from "@mui/material/Box";
 import Paper from "@mui/material/Paper";
 import Typography from "@mui/material/Typography";
 import {LoadingSpinnerLg} from "@/components/loading-spinner";
+import Link from "next/link";
+import {Button} from "@mui/material";
 
 export default function AssetLocations({asset}: { asset: AssetResponse }) {
 
@@ -13,7 +15,15 @@ export default function AssetLocations({asset}: { asset: AssetResponse }) {
       <Typography variant="h2" sx={{fontSize: '1.5rem', fontWeight: 'bold', mt: 2}}>
         Location History
       </Typography>
+      <Box display="flex" justifyContent="end" alignItems="center" gap={2}>
+        <Link href={`/assets/${asset.id}/map`}>
+          <Button variant="outlined" size="small">
+            View on Map
+          </Button>
+        </Link>
+      </Box>
       <hr/>
+
       {isLoading && <LoadingSpinnerLg/>}
       {error && <Typography color="error">Error loading locations: {error.message}</Typography>}
       {data && data.length === 0 && <Typography>No location history available.</Typography>}
