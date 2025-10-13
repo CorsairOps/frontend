@@ -11,6 +11,8 @@ import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
 import {LocationMap} from "@/components/map/LocationMap";
 import ValidateRolesPage from "@/features/auth/components/ValidateRolesPage";
+import Button from "@mui/material/Button";
+import {Refresh} from "@mui/icons-material";
 
 export default function AssetMapPage() {
   const params = useParams();
@@ -20,7 +22,8 @@ export default function AssetMapPage() {
   const {
     data: assetLocations,
     isLoading: isLoadingAssetLocations,
-    error: assetLocationsError
+    error: assetLocationsError,
+    refetch: refetchLocations
   } = useGetAssetLocations(assetId as string);
 
   if (isLoadingAsset || isLoadingAssetLocations) {
@@ -67,6 +70,9 @@ export default function AssetMapPage() {
               Manage and view {asset.name} locations.
             </Typography>
           </Box>
+          <Button startIcon={<Refresh/>} variant="outlined" onClick={() => refetchLocations()} sx={{ml: 'auto'}} disabled={isLoadingAssetLocations}>
+            Refresh Locations
+          </Button>
           <LocationMap assets={[asset]} assetLocations={assetLocations}/>
         </Container>
       </div>

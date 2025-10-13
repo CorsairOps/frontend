@@ -11,6 +11,8 @@ import FormError from "@/components/FormError";
 import {useMemo} from "react";
 import {AssetLocationResponse} from "@/lib/api/services/assetServiceAPI";
 import {LocationMap} from "@/components/map/LocationMap";
+import Button from "@mui/material/Button";
+import {Refresh} from "@mui/icons-material";
 
 export default function MissionMapPage() {
   const params = useParams();
@@ -24,7 +26,8 @@ export default function MissionMapPage() {
   const {
     data: missionAssets,
     isLoading: loadingMissionAssets,
-    error: missionAssetsError
+    error: missionAssetsError,
+    refetch: refetchMissionAssets
   } = useGetAssignedAssetsByMissionId(parseInt(missionId as string));
 
   const assetLocations: AssetLocationResponse[] = useMemo(() => {
@@ -78,6 +81,9 @@ export default function MissionMapPage() {
               View and Manage mission asset locations.
             </Typography>
           </Box>
+          <Button startIcon={<Refresh/>} variant="outlined" onClick={() => refetchMissionAssets()} sx={{ml: 'auto'}} disabled={loadingMissionAssets}>
+            Refresh Locations
+          </Button>
           <LocationMap assets={missionAssets} assetLocations={assetLocations}/>
         </Container>
       </div>
