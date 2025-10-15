@@ -38,7 +38,7 @@ export default function Home() {
               management for naval forces worldwide.
               Our
               mission is to enhance the efficiency, safety, and effectiveness of naval missions through innovative
-              technology.
+              technology. TESTS
             </Typography>
 
             <Box className="mt-4 flex space-x-4 items-center">
