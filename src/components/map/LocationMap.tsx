@@ -9,7 +9,7 @@ import 'mapbox-gl/dist/mapbox-gl.css';
 import AccordionSummary from "@mui/material/AccordionSummary";
 import Accordion from "@mui/material/Accordion";
 import AccordionDetails from "@mui/material/AccordionDetails";
-import { ExpandMore } from "@mui/icons-material";
+import {ExpandMore} from "@mui/icons-material";
 
 
 type MouseCoords = {
@@ -23,38 +23,45 @@ type ColorKey = {
   color: string
 };
 
-export function LocationMap({assets, assetLocations}: {
+export function LocationMap({assets, assetLocations, pingLatest = false, pingAll = false}: {
   assets: AssetResponse[],
-  assetLocations: AssetLocationResponse[]
+  assetLocations: AssetLocationResponse[],
+  pingLatest?: boolean,
+  pingAll?: boolean
 }) {
 
   const mapBoxAccessToken = process.env.NEXT_PUBLIC_MAPBOX_TOKEN!;
   const [popupInfo, setPopupInfo] = useState<AssetLocationResponse | null>(null);
   const [mouseCoords, setMouseCoords] = useState<MouseCoords>({longitude: 0, latitude: 0});
 
-  const colors = ['#e6194b', '#3cb44b', '#ffe119', '#4363d8', '#f58231', '#911eb4', '#46f0f0', '#f032e6', '#bcf60c', '#fabebe'];
   const colorKeys: ColorKey[] = useMemo(() => {
+    const colors = ['#e6194b', '#3cb44b', '#ffe119', '#4363d8', '#f58231', '#911eb4', '#46f0f0', '#f032e6', '#bcf60c', '#fabebe'];
     return assets.map((asset, idx) => {
       return {assetId: asset.id as string, color: colors[idx % colors.length], assetName: asset.name};
     });
   }, [assets]);
 
-  const pins = useMemo(() => assetLocations.map((location) => (
-    <Marker
-      key={location.id}
-      longitude={location.longitude as number}
-      latitude={location.latitude as number}
-      anchor="bottom"
-      onClick={e => {
-        e.originalEvent.stopPropagation();
-        setPopupInfo(location);
-      }}
-    >
-      <Pin pinStyle={{
-        fill: colorKeys.find(c => c.assetId === location.assetId)?.color || '#d00'
-      }}/>
-    </Marker>
-  )), [assetLocations]);
+  const pins = useMemo(() => assetLocations.map((location, idx) => {
+    // We can use the idx here to ping the latest, because assetLocations are always sorted from API Request
+    return (
+      <Marker
+        key={location.id}
+        longitude={location.longitude as number}
+        latitude={location.latitude as number}
+        anchor="bottom"
+        onClick={e => {
+          e.originalEvent.stopPropagation();
+          setPopupInfo(location);
+        }}
+      >
+        <Pin pinStyle={{
+          fill: colorKeys.find(c => c.assetId === location.assetId)?.color || '#d00'
+        }}
+             ping={pingAll ? true : pingLatest && idx === 0}
+        />
+      </Marker>
+    );
+  }), [assetLocations, colorKeys, pingAll, pingLatest]);
 
   return (
     <Box position="relative" width="100%" height="600px">
@@ -128,7 +135,7 @@ function MouseCoordinates({mouseCoords}: { mouseCoords: MouseCoords }) {
 function ColorKeyLegend({colorKeys}: { colorKeys: ColorKey[] }) {
   return (
     <Accordion defaultExpanded sx={{m: 0}}>
-      <AccordionSummary expandIcon={<ExpandMore />}>
+      <AccordionSummary expandIcon={<ExpandMore/>}>
         <Typography variant="h3" fontSize="small">
           <strong>Asset Color Legend</strong>
         </Typography>

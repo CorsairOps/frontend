@@ -1,4 +1,3 @@
-
 import * as React from 'react';
 
 const ICON = `M20.2,15.7L20.2,15.7c1.1-1.6,1.8-3.6,1.8-5.7c0-5.6-4.5-10-10-10S2,4.5,2,10c0,2,0.6,3.9,1.6,5.4c0,0.1,0.1,0.2,0.2,0.3
@@ -11,14 +10,25 @@ const defaultPinStyle = {
   stroke: 'none'
 };
 
-function Pin({size = 20, pinStyle = {}}: {
+function Pin({size = 20, pinStyle = {}, ping = false}: {
   size?: number;
   pinStyle?: React.CSSProperties;
+  ping?: boolean;
 }) {
   return (
-    <svg height={size} viewBox="0 0 24 24" style={{...defaultPinStyle, ...pinStyle}}>
-      <path d={ICON} />
-    </svg>
+    <div className="relative">
+      <svg height={size} viewBox="0 0 24 24" style={{...defaultPinStyle, ...pinStyle}}>
+        <path d={ICON}/>
+      </svg>
+
+      {ping && (
+        <div className="animate-ping w-4 h-4 rounded-full absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2"
+             style={{
+               backgroundColor: pinStyle.fill ? pinStyle.fill : defaultPinStyle.fill
+             }}
+        />
+      )}
+    </div>
   );
 }
 

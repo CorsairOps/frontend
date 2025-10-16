@@ -84,7 +84,7 @@ export default function MissionMapPage() {
           <Button startIcon={<Refresh/>} variant="outlined" onClick={() => refetchMissionAssets()} sx={{ml: 'auto'}} disabled={loadingMissionAssets}>
             Refresh Locations
           </Button>
-          <LocationMap assets={missionAssets} assetLocations={assetLocations}/>
+          <LocationMap assets={missionAssets} assetLocations={assetLocations} pingAll={true}/>
         </Container>
       </div>
     </ValidateRolesPage>

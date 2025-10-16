@@ -73,7 +73,7 @@ export default function AssetMapPage() {
           <Button startIcon={<Refresh/>} variant="outlined" onClick={() => refetchLocations()} sx={{ml: 'auto'}} disabled={isLoadingAssetLocations}>
             Refresh Locations
           </Button>
-          <LocationMap assets={[asset]} assetLocations={assetLocations}/>
+          <LocationMap assets={[asset]} assetLocations={assetLocations} pingLatest={true}/>
         </Container>
       </div>
     </ValidateRolesPage>
