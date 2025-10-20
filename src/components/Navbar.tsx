@@ -27,6 +27,7 @@ const pages: Page[] = [
   {name: "Dashboard", href: "/dashboard"},
   {name: "Assets", href: "/assets"},
   {name: "Missions", href: "/missions"},
+  {name: "Maintenance", href: "/maintenance"},
   {name: "Users", href: "/users"},
 ];
 
