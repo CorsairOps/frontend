@@ -7,3 +7,7 @@ export const maintenanceRequestSchema = z.object({
   status: z.enum(Object.values(OrderRequestStatus) as [string, ...string[]]),
   priority: z.number().min(1, "Priority must be at least 1.").max(5, "Priority must be at most 5.")
 });
+
+export const orderNoteRequestSchema = z.object({
+  note: z.string().min(1, "Note content is required.")
+});

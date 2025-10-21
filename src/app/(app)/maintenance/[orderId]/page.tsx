@@ -8,6 +8,7 @@ import {LoadingSpinnerLg} from "@/components/loading-spinner";
 import Box from "@mui/material/Box";
 import {useGetOrderById} from "@/lib/api/services/maintenanceServiceAPI";
 import OrderDetails from "@/app/(app)/maintenance/[orderId]/_components/OrderDetails";
+import OrderNotes from "@/app/(app)/maintenance/[orderId]/_components/OrderNotes";
 
 export default function MaintenanceOrderPage() {
   const params = useParams();
@@ -51,6 +52,7 @@ export default function MaintenanceOrderPage() {
 
             <Box sx={{display: 'flex', flexDirection: 'column', gap: 2}}>
               <OrderDetails order={order} />
+              <OrderNotes order={order} />
             </Box>
           </Container>
         </div>
