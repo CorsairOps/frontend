@@ -163,7 +163,7 @@ export default function CreateMaintenanceOrderPage() {
                 </TextField>
               </Box>
 
-              <TextField id="description" label="Mission Description" variant="outlined" fullWidth
+              <TextField id="description" label="Order Description" variant="outlined" fullWidth
                          disabled={isCreating}
                          multiline
                          maxRows={15}
