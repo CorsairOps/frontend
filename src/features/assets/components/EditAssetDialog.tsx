@@ -77,7 +77,7 @@ function EditAssetForm({asset, close}: {
     mutation: {
       onSuccess: async (data: AssetResponse) => {
         console.log("Asset updated successfully:", data);
-        queryClient.setQueryData(['asset', asset.id], data);
+        queryClient.setQueryData([`/api/assets/${data.id}`], data);
         queryClient.invalidateQueries({queryKey: [`/api/assets/${asset.id}/locations`]});
         close();
       }
