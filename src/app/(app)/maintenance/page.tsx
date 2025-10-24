@@ -8,11 +8,19 @@ import MaintenanceOrderTable from "./_components/MaintenanceOrderTable";
 
 export default function MissionPage() {
   return (
-    <ValidateRolesPage validRoles={["ADMIN", "PLANNER", "OPERATOR", "TECHNICIAN", "ANALYST"]}>
+    <ValidateRolesPage
+      validRoles={["ADMIN", "PLANNER", "OPERATOR", "TECHNICIAN", "ANALYST"]}
+    >
       <div className="pt-24 p-8 w-full">
-        <Container maxWidth="xl" sx={{display: "flex", flexDirection: 'column', gap: 4}}>
+        <Container
+          maxWidth="xl"
+          sx={{ display: "flex", flexDirection: "column", gap: 4 }}
+        >
           <Box>
-            <Typography variant="h1" sx={{fontSize: '2rem', fontWeight: 'bold'}}>
+            <Typography
+              variant="h1"
+              sx={{ fontSize: "2rem", fontWeight: "bold" }}
+            >
               Maintenance Orders
             </Typography>
             <Typography variant="body1" color="textSecondary">
@@ -20,11 +28,12 @@ export default function MissionPage() {
             </Typography>
           </Box>
 
-          <Box sx={{
-            ml: 'auto',
-            display: 'flex',
-            gap: 2
-          }}
+          <Box
+            sx={{
+              ml: "auto",
+              display: "flex",
+              gap: 2,
+            }}
           >
             <Link href="/maintenance/create">
               <Button variant="outlined" color="primary">
