@@ -140,6 +140,10 @@ export interface OrderNoteResponse {
   createdAt?: string;
 }
 
+export type GetAllOrdersParams = {
+assetId?: string;
+};
+
 type SecondParameter<T extends (...args: never) => unknown> = Parameters<T>[1];
 
 
@@ -364,16 +368,17 @@ export const useDeleteOrder = <TError = ErrorResponse | ErrorResponse | ErrorRes
     }
     
 /**
- * @summary Get a list of all maintenance orders
+ * @summary Get a list of all maintenance orders. Optionally filter by asset ID
  */
 export const getAllOrders = (
-    
+    params?: GetAllOrdersParams,
  options?: SecondParameter<typeof axiosInstance>,signal?: AbortSignal
 ) => {
       
       
       return axiosInstance<OrderResponse[]>(
-      {url: `/api/maintenance/orders`, method: 'GET', signal
+      {url: `/api/maintenance/orders`, method: 'GET',
+        params, signal
     },
       options);
     }
@@ -381,23 +386,23 @@ export const getAllOrders = (
 
 
 
-export const getGetAllOrdersQueryKey = () => {
+export const getGetAllOrdersQueryKey = (params?: GetAllOrdersParams,) => {
     return [
-    `/api/maintenance/orders`
+    `/api/maintenance/orders`, ...(params ? [params]: [])
     ] as const;
     }
 
     
-export const getGetAllOrdersQueryOptions = <TData = Awaited<ReturnType<typeof getAllOrders>>, TError = ErrorResponse | ErrorResponse | ErrorResponse>( options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof getAllOrders>>, TError, TData>>, request?: SecondParameter<typeof axiosInstance>}
+export const getGetAllOrdersQueryOptions = <TData = Awaited<ReturnType<typeof getAllOrders>>, TError = ErrorResponse | ErrorResponse | ErrorResponse>(params?: GetAllOrdersParams, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof getAllOrders>>, TError, TData>>, request?: SecondParameter<typeof axiosInstance>}
 ) => {
 
 const {query: queryOptions, request: requestOptions} = options ?? {};
 
-  const queryKey =  queryOptions?.queryKey ?? getGetAllOrdersQueryKey();
+  const queryKey =  queryOptions?.queryKey ?? getGetAllOrdersQueryKey(params);
 
   
 
-    const queryFn: QueryFunction<Awaited<ReturnType<typeof getAllOrders>>> = ({ signal }) => getAllOrders(requestOptions, signal);
+    const queryFn: QueryFunction<Awaited<ReturnType<typeof getAllOrders>>> = ({ signal }) => getAllOrders(params, requestOptions, signal);
 
       
 
@@ -411,7 +416,7 @@ export type GetAllOrdersQueryError = ErrorResponse | ErrorResponse | ErrorRespon
 
 
 export function useGetAllOrders<TData = Awaited<ReturnType<typeof getAllOrders>>, TError = ErrorResponse | ErrorResponse | ErrorResponse>(
-  options: { query:Partial<UseQueryOptions<Awaited<ReturnType<typeof getAllOrders>>, TError, TData>> & Pick<
+ params: undefined |  GetAllOrdersParams, options: { query:Partial<UseQueryOptions<Awaited<ReturnType<typeof getAllOrders>>, TError, TData>> & Pick<
         DefinedInitialDataOptions<
           Awaited<ReturnType<typeof getAllOrders>>,
           TError,
@@ -421,7 +426,7 @@ export function useGetAllOrders<TData = Awaited<ReturnType<typeof getAllOrders>>
  , queryClient?: QueryClient
   ):  DefinedUseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
 export function useGetAllOrders<TData = Awaited<ReturnType<typeof getAllOrders>>, TError = ErrorResponse | ErrorResponse | ErrorResponse>(
-  options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof getAllOrders>>, TError, TData>> & Pick<
+ params?: GetAllOrdersParams, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof getAllOrders>>, TError, TData>> & Pick<
         UndefinedInitialDataOptions<
           Awaited<ReturnType<typeof getAllOrders>>,
           TError,
@@ -431,19 +436,19 @@ export function useGetAllOrders<TData = Awaited<ReturnType<typeof getAllOrders>>
  , queryClient?: QueryClient
   ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
 export function useGetAllOrders<TData = Awaited<ReturnType<typeof getAllOrders>>, TError = ErrorResponse | ErrorResponse | ErrorResponse>(
-  options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof getAllOrders>>, TError, TData>>, request?: SecondParameter<typeof axiosInstance>}
+ params?: GetAllOrdersParams, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof getAllOrders>>, TError, TData>>, request?: SecondParameter<typeof axiosInstance>}
  , queryClient?: QueryClient
   ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
 /**
- * @summary Get a list of all maintenance orders
+ * @summary Get a list of all maintenance orders. Optionally filter by asset ID
  */
 
 export function useGetAllOrders<TData = Awaited<ReturnType<typeof getAllOrders>>, TError = ErrorResponse | ErrorResponse | ErrorResponse>(
-  options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof getAllOrders>>, TError, TData>>, request?: SecondParameter<typeof axiosInstance>}
+ params?: GetAllOrdersParams, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof getAllOrders>>, TError, TData>>, request?: SecondParameter<typeof axiosInstance>}
  , queryClient?: QueryClient 
  ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> } {
 
-  const queryOptions = getGetAllOrdersQueryOptions(options)
+  const queryOptions = getGetAllOrdersQueryOptions(params,options)
 
   const query = useQuery(queryOptions, queryClient) as  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> };
 
