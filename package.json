@@ -1,6 +1,6 @@
 {
   "name": "corsairops-frontend",
-  "version": "0.1.0",
+  "version": "1.0.1",
   "private": true,
   "scripts": {
     "dev": "NODE_OPTIONS='--max-old-space-size=512' next dev --turbopack",
@@ -42,4 +42,3 @@
     "typescript": "^5"
   }
 }
-

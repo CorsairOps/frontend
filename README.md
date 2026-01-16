@@ -1,36 +1,88 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+## Frontend
+
+This project contains the frontend codebase for CorsairOps, a microservices-based application. The frontend is built
+using modern web technologies to provide a responsive and user-friendly interface for interacting with the backend
+services.
+
+## Features
+
+- Responsive Design: The frontend is designed to be responsive and works well on various devices, including Desktops,
+  Tablets, and Mobile Phones.
+- User Authentication: Integration with backend services for user authentication and authorization.
+- Dashboard: A comprehensive dashboard to monitor and manage various aspects of the application.
+- Easy Navigation: Intuitive navigation structure for seamless user experience.
+- API Integration: Communicates with backend microservices via RESTful APIs.
+- State Management: Utilizes state management libraries for efficient data handling.
+- Component-Based Architecture: Built using reusable components for better maintainability.
+
+## Technologies Used
+
+- Next.js
+- React
+- TypeScript
+- Tailwind CSS
+- Axios
+- Material-UI
+- Orval
+- React Query
+- React Hook Form
+- Zod
+- NextAuth
 
 ## Getting Started
 
-First, run the development server:
+To get started with the frontend project, follow these steps:
+
+1. Clone the repository:
+```bash
+git clone
+```
+2. Navigate to the frontend directory:
+```bash
+cd frontend
+```
+3. Install dependencies:
+```bash
+npm install
+```
+
+4. Start the development server:
 
 ```bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+5. Open your browser and navigate to `http://localhost:3000` to view the application.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Environment Variables
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+```
+NEXTAUTH_SECRET=
+NEXT_PUBLIC_API_BASE_URL=
+KEYCLOAK_CLIENT_ID=
+KEYCLOAK_CLIENT_SECRET=
+KEYCLOAK_ISSUER=
+NEXT_PUBLIC_KEYCLOAK_LOGOUT_URL=
+NEXT_PUBLIC_MAPBOX_TOKEN=
+```
 
-## Learn More
+## OpenAPI Code Generation
 
-To learn more about Next.js, take a look at the following resources:
+This project uses Orval to generate API clients from OpenAPI specifications. The generated clients for services are
+located within the `src/lib/api/services` directory. To regenerate the API clients after updating the OpenAPI specs, run
+the following command:
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+```bash
+npm run generate-api
+```
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+API specifications are stored in the `openapi` directory. To add or update an API specification, place the OpenAPI YAML
+or JSON file in this directory and update the Orval configuration accordingly. To add a new service, follow these steps:
 
-## Deploy on Vercel
+1. Add the OpenAPI specification file for the new service in the `openapi` directory
+2. Update the Orval configuration file (`orval.config.js` or similar) to include the new service specification.
+3. Run the API generation command:
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+```bash
+npm run generate-api
+```
